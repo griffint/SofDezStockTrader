@@ -498,3 +498,6 @@ def get_historical_prices(symbol, start_date, end_date):
              keys[5]: day_data[5],
              keys[6]: day_data[6]}
     return hist_dict
+    
+if __name__ == '__main__':
+    print get_historical_prices('GOOG','2010-01-01','2010-02-01')
