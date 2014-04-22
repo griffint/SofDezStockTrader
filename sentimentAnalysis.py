@@ -9,6 +9,9 @@ Created on Sun Mar  2 12:45:40 2014
 import random
 from pattern.web import *
 from pattern.en import *
+from urllib2 import Request, urlopen
+from urllib import urlencode
+
 
 def sentiment_to_text(company):
     #set up Twitter search engine
@@ -82,6 +85,17 @@ def unicode_tweet_date_reformat(unicodeDate):
     date = int(date)
     hour = int(hour)
     return (month, date, hour)
+    
+
+def _request(symbol, stat):
+    url = 'http://finance.yahoo.com/d/quotes.csv?s=%s&f=%s' % (symbol, stat)
+    req = Request(url)
+    resp = urlopen(req)
+    content = resp.read().decode().strip()
+    return content
+    
+def get_company_name(symbol):
+    return _request(symbol, 'n')
     
 
 if __name__ == '__main__':
