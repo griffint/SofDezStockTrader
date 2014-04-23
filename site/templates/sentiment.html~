@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sentiment Analysis Results</title>
+<STYLE>
+	#copyright {
+	position: fixed;
+	right: 1em;
+	bottom: 0;
+	font-size: 1em;
+	}
+	#graph {
+	width: 65vh;
+	height: 50vh;
+	float: left;
+	}
+	#graph2 {
+	width: 65vh;
+	height: 50vh;
+	float: right;
+	}
+	#header {
+	font-size: 1.5em;
+	}
+	#sentiment {
+	border: 1px solid black;
+	}
+	td {
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-bottom: 0;
+	padding-top: 0;
+	width: 200px;
+	}
+	#disclaimer {
+	position: fixed;
+	left: 1em;
+	bottom: 0;
+	font-size: 1em;
+	}
+	#bottombar {
+	position:fixed;
+	width: 100vw;
+	height: 1.5em;
+	background-color: #87cefa;
+	bottom: 0;
+	left: 0;
+	}
+	#return {
+	padding-bottom: 2em;
+	float: left;
+	clear: both;
+	}
+</STYLE>
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  </head>
+  <body>
+    <h3>The results of the sentiment analysis of your seach for the stock {{ search }}:</h3>
+
+    <table id="sentiment">
+	<tr id="header">
+		<td></td>
+		{% for date in dates %}
+      			<td><strong>Data Point:</strong></td>
+      		{% endfor %}
+      	</tr>
+	<tr>
+		<td><strong>Date</strong></td>
+		{% for date in dates %}
+      			<td>{{ date }}</td>
+      		{% endfor %}
+      	</tr>
+	<tr>
+		<td><strong>Hours Ago</strong></td>
+		{% for hour in hours %}
+      			<td>{{ hour }}</td>
+      		{% endfor %}
+	</tr>
+	<tr>
+		<td><strong>Sentiment</strong></td>
+		{% for sentiment in sentiments %}
+      			<td>{{ sentiment }}</td>
+      		{% endfor %}
+	</tr>
+    </table>
+
+<h4>These sentiments range from -1 to 1, 1 being most positive, -1 being most negative.</h4>
+
+	<img id="graph" border="0" src="{{ url_for('static', filename='sentiment.png') }}"/>
+	<img id="graph2" border="0" src="{{ url_for('static', filename='data.png') }}"/>
+
+	<h3>We recommend buying this stock</h3>
+
+	<form method='post' action='/' id="return">
+		<INPUT type="submit" value="Click to return to the home page">
+	</form>
+	<div id="bottombar">
+		<div id="disclaimer">If there are too few results, your internet connection may be slow. Reloading may improve results.</div>
+		<div id="copyright">&copy;2014 Wolf of Wall Olin</div>
+	</div>
+  </body>
+</html>
