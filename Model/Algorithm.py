@@ -25,7 +25,7 @@ def Convert(Stocks,Exog1,Exog2,Exog3):
 
 
 def MR(A,b):
-	""" Assumes inputs are simple arrays """
+	""" Assumes inputs are numpy arrays in the form of the output of Convert """
 	ATB = np.dot(A.transpose(),b)
 	ATA = np.dot(A.transpose(),A)
 	coeff = linalg.solve(ATA,ATB)
