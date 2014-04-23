@@ -32,7 +32,7 @@ def sentiment_to_text(company):
             for tweet in t.search(company, start=i, count=100):
                 date = unicode_tweet_date_reformat(tweet.date)
                 totSentimentTemp = sentiment(tweet.text)
-                output[date] = totSentimentTemp
+                output[date] = totSentimentTemp[1]
         except:
             running = False
     return output
