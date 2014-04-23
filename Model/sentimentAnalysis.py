@@ -11,7 +11,7 @@ from urllib2 import Request, urlopen
 from symbolToName import *
 
 
-def sentiment_to_text(company):
+def twitter_sentiment(company):
     #set up Twitter search engine
     t = Twitter(language='en')
     
@@ -73,7 +73,24 @@ def unicode_tweet_date_reformat(unicodeDate):
     minute = int(minute)
     return (month, date, hour, minute)
     
+def reformatted_date_subtraction(current_date, prev_date):
+    hoursAgo = current_date[2] - prev_date[2]
+    rollover = 0
+    if hoursAgo < 0:
+        hoursAgo += 24
+        rollover = 1
+    daysAgo = current_date[1]-prev_date[1]-rollover
+    if daysAgo < 0:
+        if prev_date[0] == 1 or prev_date[0] == 3 or prev_date[0] == 5 or prev_date[0] == 7 or prev_date[0] == 8 or prev_date[0] == 10 or prev_date[0] == 12:
+            daysAgo+=31
+        elif prev_date[0] == 2:
+            daysAgo+=28
+        else:
+            daysAgo+=30
+    hoursAgo+=24*daysAgo
+    return hoursAgo
+    
 
 if __name__ == '__main__':
     print get_company_name('aapl')
-    print sentiment_to_text("walmart")
+    print twitter_sentiment("walmart")
