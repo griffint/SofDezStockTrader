@@ -55,7 +55,7 @@
 	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
   </head>
   <body>
-    <h3>The results of the sentiment analysis of your seach for the stock {{ search }}:</h3>
+    <h3>The results of the sentiment analysis of your seach for the company {{ company_name }} with the ticker {{ search }}:</h3>
 
     <table id="sentiment">
 	<tr id="header">
@@ -89,7 +89,7 @@
 	<img id="graph" border="0" src="{{ url_for('static', filename='sentiment.png') }}"/>
 	<img id="graph2" border="0" src="{{ url_for('static', filename='data.png') }}"/>
 
-	<h3>We recommend buying this stock</h3>
+	<h3 style="float:left; clear:both;">We recommend buying this stock</h3>
 
 	<form method='post' action='/' id="return">
 		<INPUT type="submit" value="Click to return to the home page">

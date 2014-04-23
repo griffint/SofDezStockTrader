@@ -6,7 +6,7 @@
 <STYLE>
 	#copyright {
 	position: absolute;
-	right: 0;
+	right: 1em;
 	bottom: 0;
 	font-size: 1em;
 </STYLE>

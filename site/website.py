@@ -143,11 +143,13 @@ def signup():
 def search():
     try:
         search = request.form['searchkey']
+        company_name = get_company_name(search)
+        search.upper()
     except:
         return redirect('/')
     timestep = request.form['timestep']
     try:
-        results = twitter_sentiment(get_company_name(search))
+        results = twitter_sentiment(company_name)
     except:
         return render_template('error.html')
     if results == []:
@@ -181,7 +183,7 @@ def search():
     pyl.legend(loc=2)
     pyl.savefig('static/data.png')
     pyl.clf()
-    return render_template('sentiment.html', dates=dates, hours=hours, sentiments=sentiments, search=search)
+    return render_template('sentiment.html', company_name=company_name, dates=dates, hours=hours, sentiments=sentiments, search=search)
     
 if __name__ == "__main__":
     print get_company_name('goog')
