@@ -12,13 +12,14 @@ from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.declarative import declarative_base
 
-#engine = create_engine("postgresql://postgres:griffin@localhost/stocks")
 
-#Base = declarative_base()
+#stuff to set up the database in Flask
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:griffin@localhost/stocks"
 db = SQLAlchemy(app)
 
+#this class describes what each row of the table will be
+#setting up all the columns for each stock data piece
 class Stock(db.Model):
    __tablename__ = 'stockData'
    id = db.Column(Integer, primary_key=True)

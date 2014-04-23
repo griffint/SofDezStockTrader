@@ -23,7 +23,6 @@ def Convert(Stocks,Exog1,Exog2,Exog3):
 	b = np.array(Stocks).T
 	return (A,b)
 
-
 def MR(A,b,A_full,b_full):
 	""" Assumes inputs are simple arrays """
 	ATB = np.dot(A.transpose(),b)
