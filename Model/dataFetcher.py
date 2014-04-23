@@ -8,6 +8,12 @@ from stocks import *
 
 
 def dataFetcher(tickerSymbol):
+    """
+    This function takes as input a ticker symbol as a string, for example 'AAPL'
+    It returns a dictionary where the keys are the statistic and the values
+    are time series lists of that statistic. This function returns all available 
+    data for a given ticker symbol.
+    """
     temp = Stock.query.filter_by(ticker=tickerSymbol).all()
     #init the lists to store data for output
     prices = []#closing price
