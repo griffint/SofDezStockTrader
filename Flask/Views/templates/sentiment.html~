@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sentiment Analysis Results</title>
+  </head>
+  <body>
+    <p>The results of the sentiment analysis of your stock:</p>
+
+    <table>
+	<tr>
+		{% for date in dates %}
+      			<td>{{ date }}</td>
+      		{% endfor %}
+      	</tr>
+	<tr>
+		{% for sentiment in sentiments %}
+      			<td>{{ sentiment }}</td>
+      		{% endfor %}
+	</tr>
+    </table>
+    
+    <p>THIS IS GONNA ROCK!</p>
+  </body>
+</html>
