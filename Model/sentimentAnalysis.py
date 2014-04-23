@@ -8,6 +8,7 @@ Created on Sun Mar  2 12:45:40 2014
 from pattern.web import *
 from pattern.en import *
 from urllib2 import Request, urlopen
+from symbolToName import *
 
 
 def sentiment_to_text(company):
@@ -70,19 +71,9 @@ def unicode_tweet_date_reformat(unicodeDate):
     date = int(date)
     hour = int(hour)
     minute = int(minute)
-    return (month, date, hour, minute)  
-    
-
-def _request(symbol, stat):
-    url = 'http://finance.yahoo.com/d/quotes.csv?s=%s&f=%s' % (symbol, stat)
-    req = Request(url)
-    resp = urlopen(req)
-    content = resp.read().decode().strip()
-    return content
-    
-def get_company_name(symbol):
-    return _request(symbol, 'n')
+    return (month, date, hour, minute)
     
 
 if __name__ == '__main__':
+    print get_company_name('aapl')
     print sentiment_to_text("walmart")
