@@ -11,6 +11,7 @@ import csv
 
 
 #List of what row[number] relates to what field
+#0=id
 #1=date
 #2=company name
 #3=ticker
