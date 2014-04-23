@@ -25,6 +25,11 @@ import csv
 #11=earnings per share
 
 def read_csv():
+    """
+    This function populates the database created in stocks.py with all
+    the data from the csv files we have
+    """
+    
     with open('Tech500.csv', 'rb') as f:
         reader = csv.reader(f)
         reader.next()
