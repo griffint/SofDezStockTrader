@@ -38,6 +38,16 @@ def MR(A,b,A_full,b_full):
 	plt.show()
 	return (coeff,errors)
 
+def AR(Endog,order):
+	n = len(Endog)
+	model = sm.tsa.ARMA(Endog[:n*8/10],(order,0))
+	model.fit()
+	pred = model.predict()
+	pred = pred[:2/10*n]
+	t = range(len(pred))
+	plt.plot(t,Endog[n*8/10:],t,pred)
+	plt.show()
+
 def Identify(data,lags):
 	fig = plt.figure(figsize=(12,8))
 	ax1 = fig.add_subplot(211)
@@ -53,4 +63,9 @@ x2 = dic['ShortInterests']
 x3 = dic['EarningsPerShare']
 (A,b) = Convert(Stocks[:1000],x1[:1000],x2[:1000],x3[:1000])
 (A_full,b_full) = Convert(Stocks,x1,x2,x3)
-MR(A,b,A_full,b_full)
+(coeff,errors) = MR(A,b,A_full,b_full)
+Identify(errors,40)
+model = sm.tsa.ARMA(errors[:1000],(1,0))
+model.fit()
+pred = model.predict()
+
