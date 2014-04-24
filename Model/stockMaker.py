@@ -43,6 +43,13 @@ def read_csv():
              
     
 if __name__ == '__main__':
-    db.create_all()
-    read_csv()
-    db.session.commit()
+
+    app = Flask(__name__)
+    app.config.from_pyfile("../config.py")
+    db.init_app(app)
+
+    with app.app_context():
+
+        db.create_all()
+        read_csv()
+        db.session.commit()
