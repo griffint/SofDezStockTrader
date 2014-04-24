@@ -13,7 +13,13 @@ from Model import *
 from Controller import *
 from flask import Flask, render_template, request, redirect
 
+from Model.stocks import db
+
 app = Flask(__name__)
+app.config.from_pyfile("config.py")
+db.init_app(app)
+
+
 
 @app.route('/', methods = ['POST', 'GET'])
 def hello_world():
