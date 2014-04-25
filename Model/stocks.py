@@ -14,6 +14,9 @@ from sqlalchemy.ext.declarative import declarative_base
 
 #stuff to set up the database in Flask
 app = Flask(__name__)
+#put your username and password where it says postgres:griffin
+#"stocks" at the end is the name of the database
+#do this instead of the config.py thing
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:griffin@localhost/stocks"
 db = SQLAlchemy(app)
 
