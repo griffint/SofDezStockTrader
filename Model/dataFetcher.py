@@ -28,5 +28,20 @@ def dataFetcher(tickerSymbol):
     outputDict = {'ClosingPrices':prices,'DailyVolumes':volumes,'ShortInterests':shortInterests,'EarningsPerShare':eps}
     print outputDict
     
+def industryTickers(industryName):
+    """This function takes as input a industry represented in our database.
+        It then returns a list of ticker symbols of all the stocks in that
+        industry"""
+        
+    temp = Stock.query.filter_by(industry=industryName).all()
+    tickerList = []
+    for i in temp:
+        
+        if i.ticker not in tickerList:
+            tickerList.append(str(i.ticker))
+    print tickerList
+    
+
 if __name__=='__main__':
-    dataFetcher('AAPL')
+    industryTickers('Aerospace & Defense')
+    
