@@ -12,8 +12,10 @@ from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.declarative import declarative_base
 
-db = SQLAlchemy()
-
+#stuff to set up the database in Flask
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:griffin@localhost/stocks"
+db = SQLAlchemy(app)
 
 #this class describes what each row of the table will be
 #setting up all the columns for each stock data piece
