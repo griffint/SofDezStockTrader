@@ -61,7 +61,5 @@ def search():
     return render_template('sentiment.html', company_name=company_name, dates=dates, hours=hours, sentiments=sentiments, search=search)
     
 if __name__ == "__main__":
-    print symbolToName.get_company_name('goog')
-    print sentimentAnalysis.twitter_sentiment(str(symbolToName.get_company_name('goog')))
     app.run()
     
