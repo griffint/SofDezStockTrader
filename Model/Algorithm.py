@@ -34,7 +34,7 @@ def MR(A,b,A_full,b_full):
 	predicted = np.dot(A_full,coeff)
 	t = range(len(predicted))
 	plt.plot(t,b_full,'.',t,predicted) 
-      plt.savefig('prediction.jpg')
+        plt.savefig('prediction.jpg')
 	plt.show()
 	errors = predicted - b_full
 	e = errors/b_full
