@@ -17,7 +17,7 @@ app = Flask(__name__)
 #put your username and password where it says postgres:griffin
 #"stocks" at the end is the name of the database
 #do this instead of the config.py thing
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:Dogdoordogdoor1!@localhost/stocks"
+app.config.from_pyfile("config.py")
 db = SQLAlchemy(app)
 
 #this class describes what each row of the table will be
