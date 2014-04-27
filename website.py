@@ -29,11 +29,14 @@ def hello_world():
 def search():
     try:
         search = request.form['searchkey']
+        print search
         company_name = symbolToName.get_company_name(search)
         search=search.upper()
+        print search
     except:
         return redirect('/')
     try:
+        company_name = str(company_name)
         results = sentimentAnalysis.twitter_sentiment(company_name)
     except:
         return render_template('error.html')
@@ -59,5 +62,6 @@ def search():
     
 if __name__ == "__main__":
     print symbolToName.get_company_name('goog')
+    print sentimentAnalysis.twitter_sentiment(str(symbolToName.get_company_name('goog')))
     app.run()
     

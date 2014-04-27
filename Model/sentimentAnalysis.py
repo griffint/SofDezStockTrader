@@ -27,9 +27,7 @@ def twitter_sentiment(company):
     running = True
     while running:
         try:
-	    print i
-            i = unicode(int(i)-2500000000000000) #look further back in twitter's archive
-            print i
+            i = unicode(int(i)-1000000000000000) #look further back in twitter's archive
             if t.search(company, start=i, count=1)==[]:
                 raise SystemExit("Sorry, your company doesn't have any recent tweets") #break the try except statement
             for tweet in t.search(company, start=i, count=100):
