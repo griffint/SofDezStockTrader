@@ -27,13 +27,15 @@ def twitter_sentiment(company):
     running = True
     while running:
         try:
-            i = unicode(int(i)-250000000000000*(k)) #look further back in twitter's archive
+	    print i
+            i = unicode(int(i)-2500000000000000) #look further back in twitter's archive
+            print i
             if t.search(company, start=i, count=1)==[]:
                 raise SystemExit("Sorry, your company doesn't have any recent tweets") #break the try except statement
             for tweet in t.search(company, start=i, count=100):
                 date = unicode_tweet_date_reformat(tweet.date)
                 totSentimentTemp = sentiment(tweet.text)
-                output[date] = totSentimentTemp[1]
+                output[date] = totSentimentTemp[0]
         except:
             running = False
     return output

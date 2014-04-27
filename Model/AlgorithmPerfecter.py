@@ -20,7 +20,7 @@ def ParFinder(par):
 	x1 = dic['DailyVolumes']
 	x2 = dic['ShortInterests']
 	x3 = dic['EarningsPerShare']
-	(A,b) = Convert(Stocks[:900],x1[:900],x2[:900],x3[:900])
+	(A,b) = Convert(Stocks[:500],x1[:500],x2[:500],x3[:500])
 	(A_full,b_full) = Convert(Stocks,x1,x2,x3)
 	ATB = np.dot(A.transpose(),b)
 	numvars = ATB.shape[0]
@@ -31,7 +31,7 @@ def ParFinder(par):
 	return sumsqrs(errors)
 
 if __name__ == "__main__":
-	pars = range(-0,100000,100 0)
+	pars = range(-0,100000,1000)
 	out = []
 	for i in range(len(pars)):
 		out.append(ParFinder(pars[i]))
