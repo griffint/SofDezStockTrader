@@ -29,10 +29,8 @@ def hello_world():
 def search():
     try:
         search = request.form['searchkey']
-        print search
         company_name = symbolToName.get_company_name(search)
         search=search.upper()
-        print search
     except:
         return redirect('/')
     try:
