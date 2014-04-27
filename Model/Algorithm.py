@@ -33,7 +33,8 @@ def MR(A,b,A_full,b_full):
 	coeff = np.dot(linalg.inv(ATA),ATB)
 	predicted = np.dot(A_full,coeff)
 	t = range(len(predicted))
-	plt.plot(t,b_full,'.',t,predicted)
+	plt.plot(t,b_full,'.',t,predicted) 
+      plt.savefig('prediction.jpg')
 	plt.show()
 	errors = predicted - b_full
 	e = errors/b_full
