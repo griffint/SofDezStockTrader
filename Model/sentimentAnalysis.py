@@ -18,6 +18,7 @@ def twitter_sentiment(company):
     #initalize variables
     output = {}
     k=0
+    dates = []
     
     #Check that there is a result, and use that as reference tweet id later
     for tweet in t.search(company, start=None, count=1):
@@ -32,11 +33,12 @@ def twitter_sentiment(company):
                 raise SystemExit("Sorry, your company doesn't have any recent tweets") #break the try except statement
             for tweet in t.search(company, start=i, count=100):
                 date = unicode_tweet_date_reformat(tweet.date)
+                dates.append(date)
                 totSentimentTemp = sentiment(tweet.text)
                 output[date] = totSentimentTemp[0]
         except:
             running = False
-    return output
+    return [output, dates]
         
 def unicode_tweet_date_reformat(unicodeDate):
     month = unicodeDate[4:7]
@@ -92,5 +94,4 @@ def reformatted_date_subtraction(current_date, prev_date):
     
 
 if __name__ == '__main__':
-    print get_company_name('aapl')
-    print twitter_sentiment("walmart")
+    print twitter_sentiment('walmart')
