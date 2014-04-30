@@ -39,6 +39,39 @@ def twitter_sentiment(company):
         except:
             running = False
     return [output, dates]
+    
+def twitter_sentiment_average(company):
+    #set up Twitter search engine
+    t = Twitter(language='en')
+    
+    #initalize variables
+    output = {}
+    dates = []
+    
+    #Check that there is a result, and use that as reference tweet id later
+    for tweet in t.search(company, start=None, count=1):
+        i = tweet.id
+        print i
+        
+    #loop that runs untilyou can't pull more data from Twitter
+    running = True
+    while running:
+        try:
+            count = 0
+            totSentiment = 0
+            if t.search(company, start=i, count=1)==[]:
+                raise SystemExit("Sorry, your company doesn't have any recent tweets") #break the try except statement
+            for tweet in t.search(company, start=i, count=100):
+                count+=1
+                date = unicode_tweet_date_reformat(tweet.date)
+                totSentimentTemp = sentiment(tweet.text)
+                totSentiment += totSentimentTemp[0]
+            dates.append(date)
+            output[date] = totSentiment/count
+            i = unicode(int(i)-1000000000000000) #look further back in twitter's archive
+        except:
+            running = False
+    return [output, dates]
         
 def unicode_tweet_date_reformat(unicodeDate):
     month = unicodeDate[4:7]
@@ -95,3 +128,4 @@ def reformatted_date_subtraction(current_date, prev_date):
 
 if __name__ == '__main__':
     print twitter_sentiment('walmart')
+    print twitter_sentiment_average('walmart')

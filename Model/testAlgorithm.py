@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Apr 30 14:31:10 2014
+
+@author: sawyer
+"""
+
 import numpy as np 
 import statsmodels.api as sm
 import scipy.linalg as linalg
@@ -5,23 +12,28 @@ import matplotlib.pyplot as plt
 from statsmodels.graphics.api import qqplot
 import random
 import dataFetcher as df
+import datetime
+import matplotlib.pyplot as plt
+from matplotlib.dates import MONDAY
+from matplotlib.finance import quotes_historical_yahoo
+from matplotlib.dates import MonthLocator, WeekdayLocator, DateFormatter
+
 def Analyze(ticker):
 	dic = df.dataFetcher(ticker)
-	comp = df.industryTickers(ticker)
+	ind = df.getIndustry(ticker)
+	comp = df.industryTickers(ind)
+	comp = comp[2]
+	dic2 = df.dataFetcher(comp)
 	Stocks = dic['ClosingPrices']
 	x1 = dic['DailyVolumes']
-	x2 = dic['EarningsPerShare']
-	x3 = dic['ShortInterests']
-	var = [x1,x2,x3]
-	for i in range(len(comp)):
-		dic = df.dataFetcher(comp[i])
-		w = dic['ClosingPrices']
-		x = dic['DailyVolumes']
-		y = dic['EarningsPerShare']
-		z = dic['ShortInterests']
-		var.extend([w,x,y,z])
-	(A,b) = Convert(Stocks,var)
-	(A_full,b_full) = Convert(Stocks,var)
+	x2 = dic['ShortInterests']
+	x3 = dic['EarningsPerShare']
+	x4 = dic2['ClosingPrices']
+	x5 = dic2['DailyVolumes']
+	x6 = dic2['ShortInterests']
+	x7 = dic2['EarningsPerShare']
+	(A,b) = Convert(Stocks,[x1,x2,x3,x4,x5,x6,x7])
+	(A_full,b_full) = Convert(Stocks,[x1,x2,x3,x4,x5,x6,x7])
 	MR(A,b,A_full,b_full)
 
 def Convert(Stocks,ExogList):
@@ -39,8 +51,7 @@ def MR(A,b,A_full,b_full):
 	coeff = np.dot(linalg.inv(ATA),ATB)
 	predicted = np.dot(A_full,coeff)
 	t = range(len(predicted))
-	plt.plot(t,b_full,'.',t,predicted)
-
+	
 	date2 = datetime.date.today()
 	timedelta = datetime.timedelta(len(t))
 	date1 = date2 - timedelta
@@ -50,6 +61,9 @@ def MR(A,b,A_full,b_full):
 	dates2 = []
 	for i in range(735353-len(t), 735353):
 	    dates2.append(i)
+
+	print len(dates2)
+	print len(t)
 
 	# every monday
 	mondays   = WeekdayLocator(MONDAY)
@@ -75,21 +89,23 @@ def MR(A,b,A_full,b_full):
 	mean_error =  np.mean(e*e)
 	return mean_error
 
-def Predict(s):
-	diff11 = s[1] - s[0]
-	diff12 = s[2] - s[1]
-	diff2 = diff12 - diff11
-	avgdiff1 = (diff12 + diff11)/2
-	out = diff2*(2**2)/2 + avgdiff1*2 + s[1]
-	s = np.append(s,out)
-	plt.plot(s)
-	plt.show()
-	return out
-
-def Evaluate(vals,coeffs):
-	out = vals*coeffs
-	return np.sum(out)
-
 if (__name__ == "__main__"):
-	print Predict(np.array([0,1,4]))
-	print Analyze('aapl')
+	dic = df.dataFetcher('AAPL')
+	ind = df.getIndustry('AAPL')
+	comp = df.industryTickers(ind)
+	comp = comp[2]
+	dic2 = df.dataFetcher(comp)
+	Stocks = dic['ClosingPrices']
+	x1 = dic['DailyVolumes']
+	x2 = dic['ShortInterests']
+	x3 = dic['EarningsPerShare']
+	x4 = dic2['ClosingPrices']
+	x5 = dic2['DailyVolumes']
+	x6 = dic2['ShortInterests']
+	x7 = dic2['EarningsPerShare']
+	t = range(len(Stocks))
+	plt.plot(t,x3)
+	plt.show()
+	(A,b) = Convert(Stocks,[x1,x2,x3,x4,x5,x6,x7])
+	(A_full,b_full) = Convert(Stocks,[x1,x2,x3,x4,x5,x6,x7])
+	MR(A,b,A_full,b_full)
