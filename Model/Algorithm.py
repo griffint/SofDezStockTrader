@@ -7,19 +7,20 @@ import random
 import dataFetcher as df
 def Analyze(ticker):
 	dic = df.dataFetcher(ticker)
-	ind = df.getIndustry(ticker)
-	comp = df.industryTickers(ind)
-	comp = comp[2]
-	dic2 = df.dataFetcher(comp)
+	comp = df.industryTickers(ticker)
 	Stocks = dic['ClosingPrices']
 	x1 = dic['DailyVolumes']
-	x2 = dic['ShortInterests']
-	x3 = dic['EarningsPerShare']
-	x4 = dic2['ClosingPrices']
-	x5 = dic2['DailyVolumes']
-	x6 = dic2['ShortInterests']
-	x7 = dic2['EarningsPerShare']
-	(A,b) = Convert(Stocks,[x1,x2,x3,x4,x5,x6,x7])
+	x2 = dic['EarningsPerShare']
+	x3 = dic['ShortInterests']
+	var = [x1,x2,x3]
+	for i in range(len(comp)):
+		dic = df.dataFetcher(comp)
+		w = dic['ClosingPrices']
+		x = dic['DailyVolumes']
+		y = dic['EarningsPerShare']
+		z = dic['ShortInterests']
+		var.extend([w,x,y,z])
+	(A,b) = Convert(Stocks,var)
 	(A_full,b_full) = Convert(Stocks,[x1,x2,x3,x4,x5,x6,x7])
 	MR(A,b,A_full,b_full)
 
@@ -48,9 +49,11 @@ def MR(A,b,A_full,b_full):
 	mean_error =  np.mean(e*e)
 	return mean_error
 
+def Predict()
+
 if (__name__ == "__main__"):
-	dic = df.dataFetcher('AAPL')
-	ind = df.getIndustry('AAPL')
+	dic = df.dataFetcher('T')
+	ind = df.getIndustry('T')
 	comp = df.industryTickers(ind)
 	comp = comp[2]
 	dic2 = df.dataFetcher(comp)
@@ -63,8 +66,6 @@ if (__name__ == "__main__"):
 	x6 = dic2['ShortInterests']
 	x7 = dic2['EarningsPerShare']
 	t = range(len(Stocks))
-	plt.plot(t,x3)
-	plt.show()
 	(A,b) = Convert(Stocks,[x1,x2,x3,x4,x5,x6,x7])
 	(A_full,b_full) = Convert(Stocks,[x1,x2,x3,x4,x5,x6,x7])
 	MR(A,b,A_full,b_full)
