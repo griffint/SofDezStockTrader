@@ -542,5 +542,12 @@ def get_historical_prices_matrix(symbol_list, start_date, end_date):
     are consecutive days.
     """
     
+def get_current_data(ticker):
+    dict = {'ClosingPrices':float(get_last_trade_price(ticker)),'DailyVolumes':\
+    float(get_average_daily_volume(ticker)),'ShortInterests':\
+    float(get_short_ratio(ticker))*float(get_average_daily_volume(ticker))\
+    ,'EarningsPerShare':float(get_eps(ticker))}
+    return dict
+    
 if __name__ == '__main__':
-    print get_historical_prices_dict('goog','2014-01-01','2014-01-10')
+    print get_current_data('AAPL')

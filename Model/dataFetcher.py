@@ -5,7 +5,8 @@ Created on Wed Apr 23 01:19:46 2014
 @author: griffin
 """
 from stocks import *
-
+from ystockquote.griffstockquote import *
+#stuff from griffstockquote may require libraries--tested an working though
 
 def dataFetcher(tickerSymbol):
     """
@@ -46,7 +47,8 @@ def industryTickers(industryName):
             tickerList.append(str(i.ticker))
     return tickerList
     
+#To get today's data, run get_current_data -- it's from griffstockquote and tested
 
 if __name__=='__main__':
-    dataFetcher('AAPL')
+    print get_current_data('AAPL')
     
