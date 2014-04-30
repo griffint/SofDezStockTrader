@@ -29,26 +29,25 @@ def dataFetcher(tickerSymbol):
     outputDict = {'ClosingPrices':prices,'DailyVolumes':volumes,'ShortInterests':shortInterests,'EarningsPerShare':eps}
     return outputDict
 
-def getIndustry(tickerSymbol):
-    """ This function takes a ticker symbol and outputs the industry"""
-    temp =  Stock.query.filter_by(ticker=tickerSymbol).first()
-    return temp.industry    
 
-def industryTickers(industryName):
+
+def industryTickers(tickerSym):
     """This function takes as input a industry represented in our database.
         It then returns a list of ticker symbols of all the stocks in that
         industry"""
-        
-    temp = Stock.query.filter_by(industry=industryName).all()
+    temp =  Stock.query.filter_by(ticker=tickerSym).first()
+    industryName = temp.industry 
+    
+    stemp = Stock.query.filter_by(industry=industryName).all()
     tickerList = []
-    for i in temp:
+    for i in stemp:
         
-        if i.ticker not in tickerList:
+        if i.ticker not in tickerList and i.ticker != tickerSym:
             tickerList.append(str(i.ticker))
     return tickerList
     
 #To get today's data, run get_current_data -- it's from griffstockquote and tested
 
 if __name__=='__main__':
-    print get_current_data('AAPL')
+    print industryTickers('AAPL')
     
