@@ -14,14 +14,14 @@ def Analyze(ticker):
 	x3 = dic['ShortInterests']
 	var = [x1,x2,x3]
 	for i in range(len(comp)):
-		dic = df.dataFetcher(comp)
+		dic = df.dataFetcher(comp[i])
 		w = dic['ClosingPrices']
 		x = dic['DailyVolumes']
 		y = dic['EarningsPerShare']
 		z = dic['ShortInterests']
 		var.extend([w,x,y,z])
 	(A,b) = Convert(Stocks,var)
-	(A_full,b_full) = Convert(Stocks,[x1,x2,x3,x4,x5,x6,x7])
+	(A_full,b_full) = Convert(Stocks,var)
 	MR(A,b,A_full,b_full)
 
 def Convert(Stocks,ExogList):
@@ -49,23 +49,20 @@ def MR(A,b,A_full,b_full):
 	mean_error =  np.mean(e*e)
 	return mean_error
 
-def Predict()
+def Predict(s):
+	diff11 = s[1] - s[0]
+	diff12 = s[2] - s[1]
+	diff2 = diff12 - diff11
+	avgdiff1 = (diff12 + diff11)/2
+	out = diff2*(2**2)/2 + avgdiff1*2 + s[1]
+	s = np.append(s,out)
+	plt.plot(s)
+	plt.show()
+	return out
+
+def Evaluate(vals,coeffs):
+	out = vals*coeffs
+	return np.sum(out)
 
 if (__name__ == "__main__"):
-	dic = df.dataFetcher('T')
-	ind = df.getIndustry('T')
-	comp = df.industryTickers(ind)
-	comp = comp[2]
-	dic2 = df.dataFetcher(comp)
-	Stocks = dic['ClosingPrices']
-	x1 = dic['DailyVolumes']
-	x2 = dic['ShortInterests']
-	x3 = dic['EarningsPerShare']
-	x4 = dic2['ClosingPrices']
-	x5 = dic2['DailyVolumes']
-	x6 = dic2['ShortInterests']
-	x7 = dic2['EarningsPerShare']
-	t = range(len(Stocks))
-	(A,b) = Convert(Stocks,[x1,x2,x3,x4,x5,x6,x7])
-	(A_full,b_full) = Convert(Stocks,[x1,x2,x3,x4,x5,x6,x7])
-	MR(A,b,A_full,b_full)
+	print Predict(np.array([0,1,4]))
