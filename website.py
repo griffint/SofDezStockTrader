@@ -35,27 +35,38 @@ def search():
         return redirect('/')
     try:
         company_name = str(company_name)
-        results = sentimentAnalysis.twitter_sentiment(company_name)
+        results = sentimentAnalysis.twitter_sentiment_average(company_name)
     except:
         return render_template('error.html')
     if results == []:
         return render_template('noresults.html')
     dictionary = results[0]
     dates = results[1]
+    print dictionary
+    print dates
     hours = []
     sentiments = []
-    print dates
     for date in dates:
         hours.append(sentimentAnalysis.reformatted_date_subtraction(dates[0], date))
         sentiments.append(dictionary[date])
-        print date
+    print 'cocks'
     pyl.plot(hours, sentiments, 'bo-')
-    pyl.axis([-10, numpy.amax(hours)+10, numpy.amin(sentiments)-.2, numpy.amax(sentiments)+.2])
+    print 'pussy'
+    try: 
+        pyl.axis([-10, numpy.amax(hours)+10, numpy.amin(sentiments)-.2, numpy.amax(sentiments)+.2])
+    except:
+        return render_template('error.html')
+    print 'vagina'
     pyl.xlabel('Hours Ago')
+    print 'vagina'
     pyl.ylabel('Sentiment')
+    print 'vagina'
     pyl.title('Sentiment Data')
+    print 'vagina'
     pyl.savefig('static/sentiment.png')
+    print 'clotoris'
     pyl.clf()
+    print 'dicks'
     print Algorithm.Analyze(search)
     return render_template('sentiment.html', company_name=company_name, dates=dates, hours=hours, sentiments=sentiments, search=search)
     
