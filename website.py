@@ -49,24 +49,16 @@ def search():
     for date in dates:
         hours.append(sentimentAnalysis.reformatted_date_subtraction(dates[0], date))
         sentiments.append(dictionary[date])
-    print 'cocks'
     pyl.plot(hours, sentiments, 'bo-')
-    print 'pussy'
     try: 
         pyl.axis([-10, numpy.amax(hours)+10, numpy.amin(sentiments)-.2, numpy.amax(sentiments)+.2])
     except:
         return render_template('error.html')
-    print 'vagina'
     pyl.xlabel('Hours Ago')
-    print 'vagina'
     pyl.ylabel('Sentiment')
-    print 'vagina'
     pyl.title('Sentiment Data')
-    print 'vagina'
     pyl.savefig('static/sentiment.png')
-    print 'clotoris'
     pyl.clf()
-    print 'dicks'
     print Algorithm.Analyze(search)
     return render_template('sentiment.html', company_name=company_name, dates=dates, hours=hours, sentiments=sentiments, search=search)
     

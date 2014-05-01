@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Stock Tracker</title>
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+<style>
+#pictures {
+	width: 90vw;
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	position: relative;
+	}
+	#pic1 {
+	width: 28vw;
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	position: absolute;
+	left: 4vw;
+	top: 0;
+	}
+	#pic2 {
+	width: 28vw;
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	position: absolute;
+	left: 36vw;
+	top: 0;
+	}
+	#pic3 {
+	width: 28vw;
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	position: absolute;
+	left: 68vw;
+	top: 0;
+	}
+	#picture1 {
+	width: 28vw;
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	}
+	#picture2 {
+	width: 28vw;
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	}
+	#picture3 {
+	width: 28vw;
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	}
+	#copyright {
+	position: absolute;
+	right: 1em;
+	bottom: 0;
+	font-size: 1em;
+	}
+	#disclaimer {
+	position: fixed;
+	left: 1em;
+	bottom: 0;
+	font-size: 1em;
+	}
+</style>
+</head>
+
+<body></body>
+
+   <!--header-->
+<body>
+	<div id="header">
+		<h2><br/>Stock Tracker</h2>
+	</div>
+
+	<!-- Search Google -->
+	<p>If You Are Looking for a Stock Symbol, Type Here</p>
+	<div class="center">
+		<FORM method=GET action= https://www.google.com/finance target="_blank" >
+			<INPUT TYPE=text name=q size=31 maxlength=255 value="">
+			<INPUT id="button1" type=submit name=sa VALUE="Search for stocks">
+		</FORM>
+	</div> 
+
+	<br>
+	<h3>Get your buy or sell recommendation:</h3>
+
+	<!--Search form-->
+	<form method='post' action='/search'>
+		<table>
+			<tr>
+				<td style="width:15em">
+					Insert Your Stock Symbol Here:
+				</td>
+				<td style="width:10em">
+					Time Step Options
+				</td>
+				<td style="width:30em">(Be patient, as the algorithm may take a few minutes to run)</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" placeholder="Stock Symbol" name="searchkey" id="searchkey" required>
+				</td>
+				<td>
+					<select name="timestep" id="dropdown">
+						<option value="Daily">Daily</option>
+						<option value="Weekly">Weekly</option>
+						<option value="Monthly">Monthly</option>
+						<option value="Yearly">Yearly</option>
+					</select>
+				</td>
+				<td>
+					<INPUT type="submit" value="Submit">
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	<br><br>
+        
+	<!Stocks>
+
+	<div id="pictures">
+		<!--PICTURE 1-->
+		<div id="pic1" style="border:1px solid red">
+			<h2>Stocks</h2>
+			<a href="http://www.sports.yahoo.com"><img id="picture1" border="0" src="{{ url_for('static', filename='stock-chart-blue.png') }}" alt="morestocks" width="350" height="228" /></a>
+		</div>
+
+		<!--PICTURE 2-->
+		<!--More Stocks-->
+		<div id="pic2" style="border:1px solid red">
+			<h2>More Stocks</h2>
+			<a href="http://www.twitter.com"><img id="picture2" border="0" src="{{ url_for('static', filename='Stock-Market-News.jpg') }}" alt="morestocks" width="350" height="228" /></a>
+		</div>
+
+		<!--PICTURE 3-->
+		<!--Money-->
+		<div id="pic3" style="border:1px solid red">
+			<h2>Money</h2>
+			<a href="http://www.yahoo.com"><img id="picture3" border="0" src="{{ url_for('static', filename='Money.jpg') }}" alt="money" width="350" height="228" /></a>
+		</div>
+	</div>
+	<div id="disclaimer">We're not responsible for money lost in the stock market. </div>
+	<div id="copyright">&copy; Wolf of Wall Olin 2014</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
+

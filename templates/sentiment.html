@@ -9,11 +9,6 @@
 	bottom: 0;
 	font-size: 1em;
 	}
-	#graph {
-	width: 65vh;
-	height: 50vh;
-	float: left;
-	}
 	#graph2 {
 	width: 65vh;
 	height: 50vh;
@@ -21,9 +16,6 @@
 	}
 	#header {
 	font-size: 1.5em;
-	}
-	#sentiment {
-	border: 1px solid black;
 	}
 	td {
 	padding-left: 1em;
@@ -55,38 +47,8 @@
 	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
   </head>
   <body>
-    <h3>The results of the sentiment analysis of your seach for the company {{ company_name }} with the ticker {{ search }}:</h3>
-
-    <table id="sentiment">
-	<tr id="header">
-		<td></td>
-		{% for date in dates %}
-      			<td><strong>Data Point:</strong></td>
-      		{% endfor %}
-      	</tr>
-	<tr>
-		<td><strong>Date</strong></td>
-		{% for date in dates %}
-      			<td>{{ date }}</td>
-      		{% endfor %}
-      	</tr>
-	<tr>
-		<td><strong>Hours Ago</strong></td>
-		{% for hour in hours %}
-      			<td>{{ hour }}</td>
-      		{% endfor %}
-	</tr>
-	<tr>
-		<td><strong>Sentiment</strong></td>
-		{% for sentiment in sentiments %}
-      			<td>{{ sentiment }}</td>
-      		{% endfor %}
-	</tr>
-    </table>
-
-<h4>These sentiments range from -1 to 1, 1 being most positive, -1 being most negative.</h4>
-
-	<img id="graph" border="0" src="{{ url_for('static', filename='sentiment.png') }}"/>
+	<h1>The results of our analysis:</h1>
+    
 	<img id="graph2" border="0" src="{{ url_for('static', filename='prediction.jpg') }}"/>
 
 	<h3 style="float:left; clear:both;">We recommend buying this stock</h3>
