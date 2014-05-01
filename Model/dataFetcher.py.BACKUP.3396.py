@@ -72,4 +72,8 @@ def patchDataFetcher(tickerSymbol):
 #To get today's data, run get_current_data -- it's from griffstockquote and tested
 
 if __name__=='__main__':
-
+<<<<<<< HEAD
+      patchDataFetcher('AAPL')
+=======
+    df.dataFetcher('AAPL')
+>>>>>>> f62c1699a91f8ee7c84549fe7e161c5ef1ad1faf
