@@ -482,12 +482,10 @@ def get_historical_prices_dict(symbol, start_date, end_date):
         'ignore': '.csv',
     })
     url = 'http://ichart.yahoo.com/table.csv?%s' % params
-    print url
     req = Request(url)
     resp = urlopen(req)
     content = str(resp.read().decode('utf-8').strip())
     daily_data = content.splitlines()
-    print daily_data
     hist_dict = dict()
     keys = daily_data[0].split(',')
     print keys
@@ -533,7 +531,7 @@ def get_historical_prices_list(symbol, start_date, end_date):
             {
              keys[3]: day_data[3]
            }
-    return hist_dict
+    return hist_list
 def get_historical_prices_matrix(symbol_list, start_date, end_date):
     """This function takes as input (symbol_list,start_date,end_date) where the 
     symbol is a list of strings such as 'GOOG' representing the stocks 
@@ -550,4 +548,4 @@ def get_current_data(ticker):
     return dict
     
 if __name__ == '__main__':
-    print get_current_data('AAPL')
+    print get_historical_prices_dict('AAPL','2014-02-02','2014-02-28')
