@@ -15,6 +15,7 @@ def dataFetcher(tickerSymbol):
     are time series lists of that statistic. This function returns all available 
     data for a given ticker symbol.
     """
+    #this qeureys the SQL database for all stock data
     temp = Stock.query.filter_by(ticker=tickerSymbol).all()
     #init the lists to store data for output
     prices = []#closing price
@@ -46,10 +47,29 @@ def industryTickers(tickerSym):
             tickerList.append(str(i.ticker))
     return tickerList
     
-def tickerLength():
-    
+def patchDataFetcher(tickerSymbol):
+    """This function solves the issue with some missing data by 
+        cutting missing dates from one stock from all of them, so all output 
+        lists will be the same length."""
+    stocksList=industryTickers
+    #this qeureys the SQL database for all stock data
+    temp = Stock.query.filter_by(ticker=tickerSymbol).all()
+    print temp
+    #init the lists to store data for output
+    prices = []#closing price
+    volumes = []
+    shortInterests = []
+    eps = []
+    for i in temp:
+        prices.append(i.close)
+        volumes.append(i.volume)
+        shortInterests.append(i.shortInterest)
+        eps.append(i.eps)
+    outputDict = {'ClosingPrices':prices,'DailyVolumes':volumes,'ShortInterests':shortInterests,'EarningsPerShare':eps}
+    return outputDict
+
 
 #To get today's data, run get_current_data -- it's from griffstockquote and tested
 
 if __name__=='__main__':
-    df.dataFetcher('AAPL')    
+      patchDataFetcher('AAPL')
