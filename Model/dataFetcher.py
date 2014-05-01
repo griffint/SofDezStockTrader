@@ -49,4 +49,4 @@ def industryTickers(tickerSym):
 #To get today's data, run get_current_data -- it's from griffstockquote and tested
 
 if __name__=='__main__':
-    df.dataFetcher('AAPL')    
+    df.dataFetcher('AAPL')

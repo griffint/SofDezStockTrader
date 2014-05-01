@@ -91,5 +91,4 @@ def Evaluate(vals,coeffs):
 	return np.sum(out)
 
 if (__name__ == "__main__"):
-	print Predict(np.array([0,1,4]))
-	print Analyze('aapl')
+	print Analyze('AAPL')
