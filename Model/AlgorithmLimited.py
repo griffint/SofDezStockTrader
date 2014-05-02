@@ -14,16 +14,12 @@ def Analyze(ticker):
 	comp = df.industryTickers(ticker)
 	Stocks = dic['ClosingPrices']
 	x1 = dic['DailyVolumes']
-	x2 = dic['EarningsPerShare']
-	x3 = dic['ShortInterests']
-	var = [x1,x2,x3]
+	var = [x1]
 	for i in range(2):
 		dic = df.dataFetcher(comp[i])
 		w = dic['ClosingPrices']
 		x = dic['DailyVolumes']
-		y = dic['EarningsPerShare']
-		z = dic['ShortInterests']
-		var.extend([w,x,y,z])
+		var.extend([w,x])
 	(A,b) = Convert(Stocks,var)
 	(A_full,b_full) = Convert(Stocks,var)
 	MR(A,b,A_full,b_full)
