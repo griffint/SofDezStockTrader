@@ -486,6 +486,7 @@ def get_historical_prices_dict(symbol, start_date, end_date):
     resp = urlopen(req)
     content = str(resp.read().decode('utf-8').strip())
     daily_data = content.splitlines()
+    print daily_data
     hist_dict = dict()
     keys = daily_data[0].split(',')
     print keys
@@ -522,16 +523,19 @@ def get_historical_prices_list(symbol, start_date, end_date):
     resp = urlopen(req)
     content = str(resp.read().decode('utf-8').strip())
     daily_data = content.splitlines()
-    hist_list = []
-    keys = daily_data[0].split(',')
+    print daily_data
+    hist_dict = {}
+    Volumes = []
+    Prices = []
     for day in daily_data[1:]:
         day_data = day.split(',')
-        date = day_data[0]
-        hist_list[date] = \
-            {
-             keys[3]: day_data[3]
-           }
-    return hist_list
+        Volumes.append(day_data[5])
+        Prices.append(day_data[4])
+    #date = day_data[0]
+    hist_dict['Volume'] = Volumes[::-1]
+    hist_dict['Price'] = Prices[::-1]
+    
+    return hist_dict
 def get_historical_prices_matrix(symbol_list, start_date, end_date):
     """This function takes as input (symbol_list,start_date,end_date) where the 
     symbol is a list of strings such as 'GOOG' representing the stocks 
@@ -541,11 +545,18 @@ def get_historical_prices_matrix(symbol_list, start_date, end_date):
     """
     
 def get_current_data(ticker):
+    """This function takes as input a ticker symbol as a string. It returns
+    a dictionary with the most up to date numbers for the statistics given in
+    the keys"""
     dict = {'ClosingPrices':float(get_last_trade_price(ticker)),'DailyVolumes':\
     float(get_average_daily_volume(ticker)),'ShortInterests':\
     float(get_short_ratio(ticker))*float(get_average_daily_volume(ticker))\
     ,'EarningsPerShare':float(get_eps(ticker))}
     return dict
     
+def get_3_days_current(ticker):
+    """This function takes as input 
+    """
+    
 if __name__ == '__main__':
-    print get_historical_prices_dict('AAPL','2014-02-02','2014-02-28')
+    print get_historical_prices_list('AAPL','2014-04-01','2013-02-28')

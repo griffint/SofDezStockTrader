@@ -40,7 +40,8 @@ def read_csv():
                 
                 db.session.add(Stock(row[0],date(int(currentDate[2]),int(currentDate[0]),int(currentDate[1])),row[2],row[3],row[4],row[5],float(row[6]),\
                 float(row[7]),float(row[8]),float(row[9]),float(row[10]),float(row[11])))    
-             
+            else:
+                
     
 if __name__ == '__main__':
 
