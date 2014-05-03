@@ -523,17 +523,20 @@ def get_historical_prices_list(symbol, start_date, end_date):
     resp = urlopen(req)
     content = str(resp.read().decode('utf-8').strip())
     daily_data = content.splitlines()
-    print daily_data
     hist_dict = {}
+    dates = []
     Volumes = []
     Prices = []
     for day in daily_data[1:]:
         day_data = day.split(',')
+        dates.append(day_data[0])
         Volumes.append(day_data[5])
         Prices.append(day_data[4])
     #date = day_data[0]
     hist_dict['Volume'] = Volumes[::-1]
     hist_dict['Price'] = Prices[::-1]
+    hist_dict['Date'] = dates[::-1]
+    return hist_dict
     
     return hist_dict
 def get_historical_prices_matrix(symbol_list, start_date, end_date):
@@ -559,4 +562,4 @@ def get_3_days_current(ticker):
     """
     
 if __name__ == '__main__':
-    print get_historical_prices_list('AAPL','2009-04-01','2014-02-28')
+    print get_historical_prices_list('STD','2011-04-01','2014-02-28')
