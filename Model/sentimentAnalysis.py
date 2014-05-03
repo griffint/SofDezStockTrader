@@ -7,9 +7,9 @@ Created on Sun Mar  2 12:45:40 2014
 
 from pattern.web import *
 from pattern.en import *
-from urllib2 import Request, urlopen
 from symbolToName import *
-
+import numpy
+import matplotlib.pylab as pyl
 
 def twitter_sentiment(company):
     #set up Twitter search engine
@@ -17,7 +17,6 @@ def twitter_sentiment(company):
     
     #initalize variables
     output = {}
-    k=0
     dates = []
     
     #Check that there is a result, and use that as reference tweet id later
@@ -51,7 +50,6 @@ def twitter_sentiment_average(company):
     #Check that there is a result, and use that as reference tweet id later
     for tweet in t.search(company, start=None, count=1):
         i = tweet.id
-        print i
         
     #loop that runs untilyou can't pull more data from Twitter
     running = True
@@ -68,11 +66,33 @@ def twitter_sentiment_average(company):
                 totSentiment += totSentimentTemp[0]
             dates.append(date)
             output[date] = totSentiment/count
-            i = unicode(int(i)-50000000000000) #look further back in twitter's archive
-            print 'yay'
+            i = unicode(int(i)-100000000000000) #look further back in twitter's archive
         except:
             running = False
     return [output, dates]
+    
+def savefig_twitter_average(company):
+    results = twitter_sentiment_average(company)
+    dictionary = results[0]
+    dates = results[1]
+    hours = []
+    sentiments = []
+    for date in dates:
+        hours.append(reformatted_date_subtraction(dates[0], date))
+        sentiments.append(dictionary[date])
+    pyl.plot(hours, sentiments, 'bo-')
+    try: 
+        pyl.axis([-10, numpy.amax(hours)+10, numpy.amin(sentiments)-.2, numpy.amax(sentiments)+.2])
+    except:
+        pass
+    pyl.xlabel('Hours Ago')
+    pyl.ylabel('Sentiment')
+    pyl.title('Sentiment Data')
+    try:
+        pyl.savefig('static/sentiment.png')
+    except:
+        pyl.savefig('sentiment.png')
+    pyl.clf()
         
 def unicode_tweet_date_reformat(unicodeDate):
     month = unicodeDate[4:7]
@@ -128,5 +148,4 @@ def reformatted_date_subtraction(current_date, prev_date):
     
 
 if __name__ == '__main__':
-    print twitter_sentiment('walmart')
-    print twitter_sentiment_average('walmart')
+    savefig_twitter_average('walmart')

@@ -23,44 +23,27 @@ db.init_app(app)
 
 @app.route('/', methods = ['POST', 'GET'])
 def hello_world():
-    return render_template('index.html')
-    
+    return render_template('index2.html')
+
 @app.route('/search', methods = ['POST', 'GET'])
 def search():
     search = request.form['searchkey']
+    print search
     try:
         company_name = symbolToName.get_company_name(search)
         search=search.upper()
     except:
-        return redirect('/')
+        return render_template('error.html')
     try:
-        company_name = str(company_name)
-        results = sentimentAnalysis.twitter_sentiment_average(company_name)
+        print 'hey'
+        print Algorithm.Analyze(search)
     except:
-        return render_template('error.html')
-    if results == []:
-        return render_template('noresults.html')
-    dictionary = results[0]
-    dates = results[1]
-    print dictionary
-    print dates
-    hours = []
-    sentiments = []
-    for date in dates:
-        hours.append(sentimentAnalysis.reformatted_date_subtraction(dates[0], date))
-        sentiments.append(dictionary[date])
-    pyl.plot(hours, sentiments, 'bo-')
-    try: 
-        pyl.axis([-10, numpy.amax(hours)+10, numpy.amin(sentiments)-.2, numpy.amax(sentiments)+.2])
-    except:
-        return render_template('error.html')
-    pyl.xlabel('Hours Ago')
-    pyl.ylabel('Sentiment')
-    pyl.title('Sentiment Data')
-    pyl.savefig('static/sentiment.png')
-    pyl.clf()
-    print Algorithm.Analyze(search)
-    return render_template('sentiment.html', company_name=company_name, dates=dates, hours=hours, sentiments=sentiments, search=search)
+        pass#return render_template('error.html')
+    return render_template('sentiment.html', company_name=company_name, search=search)
+    
+@app.route('/about', methods = ['POST', 'GET'])
+def about():
+    return render_template('about.html')
     
 if __name__ == "__main__":
     app.run()

@@ -52,21 +52,21 @@ def MR(A,b,A_full,b_full):
 	dates2 = []
 	for i in range(735353-len(t), 735353):
 	    dates2.append(i)
-
-	# every monday
 	mondays   = WeekdayLocator(MONDAY)
-
-	# every 3rd month
 	months    = MonthLocator(range(1,13), bymonthday=1, interval=4)
 	monthsFmt = DateFormatter("%b '%y")
 
 	fig, ax = plt.subplots()
-	ax.plot_date(dates2,b_full, '.')
-	ax.plot_date(dates2,predicted, 'r-')
+	ax.plot_date(dates2,b_full, '.', label='Actual Data')
+	ax.plot_date(dates2,predicted, 'r-', label='Predicted Data')
 	ax.xaxis.set_major_locator(months)
 	ax.xaxis.set_major_formatter(monthsFmt)
 	ax.xaxis.set_minor_locator(mondays)
 	ax.autoscale_view()
+        pyl.xlabel('Hours Ago')
+        pyl.ylabel('Sentiment')
+        pyl.title('Sentiment Data')
+	pyl.legend(loc=0)
 	
 	try:
 		plt.savefig('static/prediction.jpg')

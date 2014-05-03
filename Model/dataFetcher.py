@@ -42,7 +42,6 @@ def industryTickers(tickerSym):
     stemp = Stock.query.filter_by(industry=industryName).all()
     tickerList = []
     for i in stemp:
-        
         if i.ticker not in tickerList and i.ticker != tickerSym:
             tickerList.append(str(i.ticker))
     return tickerList
@@ -51,7 +50,7 @@ def patchDataFetcher(tickerSymbol):
     """This function solves the issue with some missing data by 
         cutting missing dates from one stock from all of them, so all output 
         lists will be the same length."""
-    stocksList=industryTickers
+    stocksList=industryTickers(tickerSymbol)
     #this qeureys the SQL database for all stock data
     temp = Stock.query.filter_by(ticker=tickerSymbol).all()
     print temp
@@ -72,4 +71,4 @@ def patchDataFetcher(tickerSymbol):
 #To get today's data, run get_current_data -- it's from griffstockquote and tested
 
 if __name__=='__main__':
-
+    print industryTickers('AAPL')

@@ -14,9 +14,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 #stuff to set up the database in Flask
 app = Flask(__name__)
-#put your username and password where it says postgres:griffin
-#"stocks" at the end is the name of the database
-#do this instead of the config.py thing
+#config file tells where postgres URL is
 app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
 
@@ -29,26 +27,17 @@ class Stock(db.Model):
    company = db.Column(String)
    ticker = db.Column(String)
    industry = db.Column(String)
-   sector = db.Column(String)
    close = db.Column(Float)
-   high = db.Column(Float)
-   low = db.Column(Float)
    volume = db.Column(Float)
-   shortInterest = db.Column(Float)
-   eps = db.Column(Float)
    
-   def __init__(self,id,date,company,ticker,industry,sector,close,high,low,volume,shortInterest,eps):
+   
+   def __init__(self,id,date,company,ticker,industry,close,volume):
        self.id = id        
        self.date = date
        self.company = company
        self.ticker = ticker
        self.industry = industry
-       self.sector = sector
        self.close = close
-       self.high = high
-       self.low = low
        self.volume = volume
-       self.shortInterest = shortInterest
-       self.eps = eps
        
   
