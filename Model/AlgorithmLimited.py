@@ -90,4 +90,4 @@ def Evaluate(vals,coeffs):
 	return np.sum(out)
 
 if (__name__ == "__main__"):
-	print Analyze('T')
+	print df.industryTickers('AAP')
