@@ -13,7 +13,6 @@ from statsmodels.graphics.api import qqplot
 import random
 import dataFetcher as df
 import datetime
-import matplotlib.pyplot as plt
 from matplotlib.dates import MONDAY
 from matplotlib.finance import quotes_historical_yahoo
 from matplotlib.dates import MonthLocator, WeekdayLocator, DateFormatter

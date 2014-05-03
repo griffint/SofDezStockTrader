@@ -68,7 +68,8 @@ def twitter_sentiment_average(company):
                 totSentiment += totSentimentTemp[0]
             dates.append(date)
             output[date] = totSentiment/count
-            i = unicode(int(i)-1000000000000000) #look further back in twitter's archive
+            i = unicode(int(i)-50000000000000) #look further back in twitter's archive
+            print 'yay'
         except:
             running = False
     return [output, dates]
