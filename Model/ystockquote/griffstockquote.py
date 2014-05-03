@@ -559,4 +559,4 @@ def get_3_days_current(ticker):
     """
     
 if __name__ == '__main__':
-    print get_historical_prices_list('AAPL','2014-04-01','2013-02-28')
+    print get_historical_prices_list('AAPL','2009-04-01','2014-02-28')
