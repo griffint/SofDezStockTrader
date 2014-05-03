@@ -9,17 +9,27 @@ from matplotlib.dates import MONDAY
 from matplotlib.finance import quotes_historical_yahoo
 from matplotlib.dates import MonthLocator,WeekdayLocator,DateFormatter
 import dataFetcher as df
+
+def FloatConvert(l):
+	out = []
+	for i in range(len(l)):
+		out.append(float(l[i]))
+	return out
+
 def Analyze(ticker):
-	dic = df.dataFetcher(ticker)
+	dic = df.internetData(ticker)
 	comp = df.industryTickers(ticker)
-	Stocks = dic['ClosingPrices']
-	x1 = dic['DailyVolumes']
+	Stocks = FloatConvert(dic['Prices'])
+	x1 = FloatConvert(dic['Volumes'])
 	var = [x1]
-	for i in range(2):
-		dic = df.dataFetcher(comp[i])
-		w = dic['ClosingPrices']
-		x = dic['DailyVolumes']
-		var.extend([w,x])
+	for i in range(5):
+		try:
+			dic = df.internetData(comp[i])
+			w = FloatConvert(dic['Prices'])
+			x = FloatConvert(dic['Volumes'])
+			var.extend([w,x])
+		except:
+			pass
 	(A,b) = Convert(Stocks,var)
 	(A_full,b_full) = Convert(Stocks,var)
 	MR(A,b,A_full,b_full)
@@ -28,6 +38,7 @@ def Convert(Stocks,ExogList):
 	""" This function converts data from EXOG and stocks lists to the A and b parameters for Ax=b"""
 	A = np.array(ExogList).T
 	b = np.array(Stocks).T
+	print np.dot(A.T,b)
 	return (A,b)
 
 def MR(A,b,A_full,b_full):
@@ -90,4 +101,4 @@ def Evaluate(vals,coeffs):
 	return np.sum(out)
 
 if (__name__ == "__main__"):
-	print df.industryTickers('AAP')
+	print Analyze('AAP')
