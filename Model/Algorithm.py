@@ -8,7 +8,6 @@ import datetime
 from matplotlib.dates import MONDAY
 from matplotlib.finance import quotes_historical_yahoo
 from matplotlib.dates import MonthLocator,WeekdayLocator,DateFormatter
-import dataFetcher as df
 def Analyze(ticker):
 	dic = df.dataFetcher(ticker)
 	comp = df.industryTickers(ticker)
@@ -94,4 +93,4 @@ def Evaluate(vals,coeffs):
 	return np.sum(out)
 
 if (__name__ == "__main__"):
-	print Analyze('T')
+	pass
