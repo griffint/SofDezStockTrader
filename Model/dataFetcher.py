@@ -6,6 +6,7 @@ Created on Wed Apr 23 01:19:46 2014
 """
 from stocks import *
 from ystockquote.griffstockquote import *
+
 #stuff from griffstockquote may require libraries--tested an working though
 
 def dataFetcher(tickerSymbol):
@@ -36,15 +37,39 @@ def industryTickers(tickerSym):
     """This function takes as input a industry represented in our database.
         It then returns a list of ticker symbols of all the stocks in that
         industry"""
-    temp =  Stock.query.filter_by(ticker=tickerSym).first()
-    industryName = temp.industry 
+    with open('NYSEindustries.csv','rb') as f:
+        reader = csv.reader(f)
+        reader.next()
+        tickersList = []
+        industryDict = {}
+        next(reader)
+        for row in reader:
+            if str((row[4].split('/'))[0]) not in industryDict:
+                industryDict[str((row[4].split('/'))[0])] = []
+            else:
+                industryDict[str((row[4].split('/'))[0])].append(str((row[1].split('/'))[0]))
+            
+        for key in industryDict:
+            if tickerSym in industryDict[key]:
+                tickersList = industryDict[key]
+                
+        tickersList.remove(tickerSym)
+        return tickersList
+        
+            #first element of individual list will be ticker, then
+            #company name, then
+            
+                
+                
+        
     
-    stemp = Stock.query.filter_by(industry=industryName).all()
-    tickerList = []
-    for i in stemp:
-        if i.ticker not in tickerList and i.ticker != tickerSym:
-            tickerList.append(str(i.ticker))
-    return tickerList
+    
+#    stemp = Stock.query.filter_by(industry=industryName).all()
+#    tickerList = []
+#    for i in stemp:
+#        if i.ticker not in tickerList and i.ticker != tickerSym:
+#            tickerList.append(str(i.ticker))
+#    return tickerList
     
 def patchDataFetcher(tickerSymbol):
     """This function solves the issue with some missing data by 
@@ -71,4 +96,4 @@ def patchDataFetcher(tickerSymbol):
 #To get today's data, run get_current_data -- it's from griffstockquote and tested
 
 if __name__=='__main__':
-    print industryTickers('AAPL')
+    print industryTickers('AAP')
