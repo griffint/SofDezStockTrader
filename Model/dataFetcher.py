@@ -44,11 +44,13 @@ def industryTickers(tickerSym):
         industryDict = {}
         next(reader)
         for row in reader:
+            
             if str((row[4].split('/'))[0]) not in industryDict:
                 industryDict[str((row[4].split('/'))[0])] = []
+                industryDict[str((row[4].split('/'))[0])].append(str((row[1].split('/'))[0]))
             else:
                 industryDict[str((row[4].split('/'))[0])].append(str((row[1].split('/'))[0]))
-            
+        
         for key in industryDict:
             if tickerSym in industryDict[key]:
                 tickersList = industryDict[key]
@@ -56,44 +58,19 @@ def industryTickers(tickerSym):
         tickersList.remove(tickerSym)
         return tickersList
         
-            #first element of individual list will be ticker, then
-            #company name, then
-            
-                
-                
-        
-    
-    
-#    stemp = Stock.query.filter_by(industry=industryName).all()
-#    tickerList = []
-#    for i in stemp:
-#        if i.ticker not in tickerList and i.ticker != tickerSym:
-#            tickerList.append(str(i.ticker))
-#    return tickerList
-    
-def patchDataFetcher(tickerSymbol):
-    """This function solves the issue with some missing data by 
-        cutting missing dates from one stock from all of them, so all output 
-        lists will be the same length."""
-    stocksList=industryTickers(tickerSymbol)
-    #this qeureys the SQL database for all stock data
-    temp = Stock.query.filter_by(ticker=tickerSymbol).all()
-    print temp
-    #init the lists to store data for output
-    prices = []#closing price
-    volumes = []
-    shortInterests = []
-    eps = []
-    for i in temp:
-        prices.append(i.close)
-        volumes.append(i.volume)
-        shortInterests.append(i.shortInterest)
-        eps.append(i.eps)
-    outputDict = {'ClosingPrices':prices,'DailyVolumes':volumes,'ShortInterests':shortInterests,'EarningsPerShare':eps}
+def internetData(tickerSym):
+    """takes as input a ticker as a string outputs dictionary with sequential
+    lists of prices and volumes"""
+    outputDict = {}
+    tempDict = get_historical_prices_list(tickerSym,'2009-05-03','2014-05-03')
+    outputDict['Volumes']=tempDict['Volume']
+    outputDict['Prices']=tempDict['Price']
     return outputDict
+
+    
 
 
 #To get today's data, run get_current_data -- it's from griffstockquote and tested
 
 if __name__=='__main__':
-    print industryTickers('AAP')
+    print internetData('T')
