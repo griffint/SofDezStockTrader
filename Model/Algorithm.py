@@ -63,9 +63,9 @@ def MR(A,b,A_full,b_full):
 	ax.xaxis.set_major_formatter(monthsFmt)
 	ax.xaxis.set_minor_locator(mondays)
 	ax.autoscale_view()
-        plt.xlabel('Hours Ago')
-        plt.ylabel('Sentiment')
-        plt.title('Sentiment Data')
+        plt.xlabel('Date')
+        plt.ylabel('Stock Prices ($)')
+        plt.title('Stock Prices and Predictions')
 	plt.legend(loc=0)
 	
 	try:
