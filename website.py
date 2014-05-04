@@ -28,7 +28,8 @@ def search():
         company_name = symbolToName.get_company_name(search)
         search=search.upper()
     except:
-        return redirect('/error')
+        #return redirect('/error')
+        pass
     try:
         pass
     except:
