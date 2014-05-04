@@ -90,10 +90,7 @@ def savefig_twitter_average(company):
     pyl.xlabel('Hours Ago')
     pyl.ylabel('Sentiment')
     pyl.title('Sentiment Data for '+company)
-    try:
-        pyl.savefig('static/sentiment.png')
-    except:
-        pyl.savefig('sentiment.png')
+    pyl.savefig('static/sentiment.png')
     pyl.clf()
         
 def unicode_tweet_date_reformat(unicodeDate):
