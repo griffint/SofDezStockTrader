@@ -12,7 +12,7 @@ Flask-SQLAlchemy
 SQLAlchemy
 scipy
 datetime
-urllib
 urllib2
 csv
 flask
+urllib
