@@ -105,7 +105,7 @@
 	<img id="graph2" border="0" src="{{ url_for('static', filename='prediction.jpg') }}"/>
 	<img id="graph" border="0" src="{{ url_for('static', filename='sentiment.png') }}"/>
 
-	<h3 style="text-align:center; clear:both;">We recommend buying this stock</h3>
+	<h3 style="text-align:center; clear:both;">We recommend {{ recommendation }} this stock. This stock's price is currently {{ current_price }} and we predict that the price tomorrow will be {{ next_price }}. We think that the error in this is {{ error }}%. </h3>
 
 	<p style="text-align:center;" ><a class="btn btn-primary btn-lg" role="button" href="/" id="return">Return to homepage &raquo;</a><p>
 	<div id="bottombar">
