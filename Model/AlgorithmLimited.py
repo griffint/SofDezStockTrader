@@ -16,22 +16,23 @@ def FloatConvert(l):
 		out.append(float(l[i]))
 	return out
 
-def Analyze(ticker):
+def Analyze(ticker,par):
 	dic = df.internetData(ticker)
 	comp = df.industryTickers(ticker)
 	Stocks = FloatConvert(dic['Prices'])
-	x1 = FloatConvert(dic['Volumes'])
-	var = [x1]
-	for i in range(5):
+	x = FloatConvert(dic['Volumes'])
+	var = [x]
+	for i in range(len(comp)):
 		try:
 			dic = df.internetData(comp[i])
 			w = FloatConvert(dic['Prices'])
 			x = FloatConvert(dic['Volumes'])
 			var.extend([w,x])
+			var_full.extend([w,x])
 		except:
 			pass
 	(A,b) = Convert(Stocks,var)
-	(A_full,b_full) = Convert(Stocks,var)
+	(A_full,b_full) = Convert(Stocks_full,var_full)
 	MR(A,b,A_full,b_full)
 
 def Convert(Stocks,ExogList):
@@ -41,9 +42,8 @@ def Convert(Stocks,ExogList):
 	print np.dot(A.T,b)
 	return (A,b)
 
-def MR(A,b,A_full,b_full):
+def MR(A,b,A_full,b_full,par):
 	""" Assumes inputs are simple arrays """
-	par = 10000
 	ATB = np.dot(A.transpose(),b)
 	numvars = ATB.shape[0]
 	ATA = np.dot(A.transpose(),A) + par*np.identity(numvars)
@@ -101,4 +101,4 @@ def Evaluate(vals,coeffs):
 	return np.sum(out)
 
 if (__name__ == "__main__"):
-	print Analyze('AAP')
+	print Analyze('T')
