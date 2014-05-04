@@ -8,6 +8,7 @@ Created on Thu Apr 10 16:13:27 2014
 from pattern.web import *
 from pattern.en import *
 from Model.symbolToName import get_company_name
+from Model.sentimentAnalysis import savefig_twitter_average
 from flask import Flask, render_template, request, redirect
 #from Model.stocks import db
 
@@ -27,10 +28,12 @@ def search():
     try:
         company_name = get_company_name(search)
         search=search.upper()
+        savefig_twitter_average(company_name)
     except:
         company_name = 'AAAAAAAAAAAAAAAAA'
         #return redirect('/error')
         pass
+    print company_name
     return render_template('sentiment.html', company_name=company_name, search=search)
     
 @app.route('/about', methods = ['POST', 'GET'])
