@@ -19,7 +19,6 @@ datetime
 urllib
 urllib2
 csv
-sqlalchemy
 flask
 flask.ext.sqlalchemy
 sqlalchemy.ext.declarative
