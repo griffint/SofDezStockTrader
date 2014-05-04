@@ -9,11 +9,11 @@ from pattern.web import *
 from pattern.en import *
 from Model import symbolToName
 from flask import Flask, render_template, request, redirect
-from Model.stocks import db
+#from Model.stocks import db
 
 app = Flask(__name__)
-app.config.from_pyfile("config.py")
-db.init_app(app)
+#app.config.from_pyfile("config.py")
+#db.init_app(app)
 
 
 
@@ -28,11 +28,9 @@ def search():
         company_name = symbolToName.get_company_name(search)
         search=search.upper()
     except:
-        return redirect('/error')
-    try:
+        company_name = 'AAAAAAAAAAAAAAAAA'
+        #return redirect('/error')
         pass
-    except:
-        pass#return render_template('error.html')
     return render_template('sentiment.html', company_name=company_name, search=search)
     
 @app.route('/about', methods = ['POST', 'GET'])
