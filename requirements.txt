@@ -10,7 +10,6 @@ numpy
 matplotlib
 Flask-SQLAlchemy
 SQLAlchemy
-statsmodels.api
 scipy.linalg
 statsmodels
 statsmodels.graphics.api
