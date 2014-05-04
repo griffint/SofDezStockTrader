@@ -506,6 +506,7 @@ def get_historical_prices_list(symbol, start_date, end_date):
     """
     Get historical prices for the given ticker symbol.
     Date format is 'YYYY-MM-DD'
+    Ticker should be a string like 'AAPL'.
     """
     params = urlencode({
         's': symbol,
@@ -533,6 +534,8 @@ def get_historical_prices_list(symbol, start_date, end_date):
         Volumes.append(day_data[5])
         Prices.append(day_data[4])
     #date = day_data[0]
+    
+    #putting the lists as values in the dictionary
     hist_dict['Volume'] = Volumes[::-1]
     hist_dict['Price'] = Prices[::-1]
     hist_dict['Date'] = dates[::-1]
