@@ -20,7 +20,7 @@ def Analyze(ticker,par):
 	Stocks = FloatConvert(dic['Prices'])
 	x = FloatConvert(dic['Volumes'])
 	var = [x]
-	for i in range(1):
+	for i in range(5):
 		try:
 			dic = df.internetData(comp[i])
 			w = FloatConvert(dic['Prices'])
@@ -90,18 +90,17 @@ def VarPredict(var):
 	out = []
 	for i in range(len(var)):
 		x = var[i]
-		pred = Predict(x[-3:])
+		pred = Predict(x[-50:],8)
 		out.append(pred)
 	return np.array(out)
 
-def Predict(s):
-	diff11 = s[1] - s[0]
-	diff12 = s[2] - s[1]
-	diff2 = diff12 - diff11
-	avgdiff1 = (diff12 + diff11)/2
-	out = diff2*(2**2)/2 + avgdiff1*2 + s[1]
-	s = np.append(s,out)
-	return out
+def Predict(s,deg):
+	t = range(len(s))
+	t = np.array(t)
+	t_next = t[-1] + 1
+	p = np.polyfit(t,s,deg)
+	return np.polyval(p,t_next)
+
 
 def Evaluate(vals,coeffs):
 	out = vals*coeffs
