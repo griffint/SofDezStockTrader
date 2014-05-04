@@ -6,9 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>About Wolf of Wall Olin</title>
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<style>
+	#copyright {
+	position: fixed;
+	right: 1em;
+	bottom: 0;
+	font-size: 1em;
+	}
+	#disclaimer {
+	position: fixed;
+	left: 1em;
+	bottom: 0;
+	font-size: 1em;
+	}
+	#bottombar {
+	position:fixed;
+	width: 100vw;
+	height: 1.5em;
+	background-color: #87cefa;
+	bottom: 0;
+	left: 0;
+	}
+	#return {
+	margin-bottom: 2em;
+	}
+	</style>
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -32,18 +58,12 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="/">Stock Tracker</a>
-	  <a class="navbar-brand" href="/about">About Us</a>
+	  <a class="navbar-brand" href="/about">About</a>
         </div>
 	<div class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" role="form" method='post' action='/search' name="searchkey" required>
+          <form class="navbar-form navbar-right" role="form" method='post' action='/search'>
             <div class="form-group">
-              <input type="text" placeholder="Stock Ticker" class="form-control">
-	      <select name="timestep" id="dropdown">
-		<option value="Daily">Daily</option>
-		<option value="Weekly">Weekly</option>
-		<option value="Monthly">Monthly</option>
-		<option value="Yearly">Yearly</option>
-	      </select>
+              <input type="text" placeholder="Stock Ticker" class="form-control" name="searchkey" required>
             </div>
             <button type="submit" class="btn btn-success">Predict!</button>
           </form>
@@ -53,12 +73,21 @@
 
     <div class="container">
 
-      <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+      <div class="starter-template" style="margin-top: 10vh;">
+        <h1 style="text-align: center;">About Us</h1>
+        <p class="lead" style="text-align: center; margin-left: 0; margin-right: 15vw; width: 70vw;">This project was designed and developed by Griffin Tschurwald, Greg Coleman, Maor Bernstein, Kevin Suzuki, and Sawyer Vaughan. We're a team of students studying to be engineers at the Franklin W. Olin College of Engineering in Massachusetts. This app was our final project for our Software Design class. </p>
+      </div>
+      <div class="starter-template" style="margin-top: 10vh;">
+        <h1 style="text-align: center;">About the Model</h1>
+        <p class="lead" style="text-align: center; margin-left: 0; margin-right: 15vw; width: 70vw;">Our program was designed to build a model for dependence of stock price upon volume, and competitor's stock prices and volumes. To build the model, we use multiple regression to determine the price's dependence. Obviously, the stock market is very complex, and if anybody could easily predict future trends, the stock market would be a broken system. This is the reason for our prediction being very short term. We've done our best, but obviously if you're actually buying stocks, you should seek professional advice. </p>
       </div>
 
     </div><!-- /.container -->
+<p style="text-align:center;" ><a class="btn btn-primary btn-lg" role="button" href="/" id="return">Return to homepage &raquo;</a><p>
+    <div id="bottombar">
+		<div id="disclaimer">We're not responsible for money lost in the stock market. </div>
+		<div id="copyright">&copy;2014 Wolf of Wall Olin</div>
+	</div>
 
 
     <!-- Bootstrap core JavaScript
