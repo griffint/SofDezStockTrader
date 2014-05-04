@@ -4,10 +4,10 @@ Created on Thu Apr 10 16:13:27 2014
 
 @author: sawyer
 """
-
+ 
 from pattern.web import *
 from pattern.en import *
-from Model import symbolToName
+from Model.symbolToName import get_company_name
 from flask import Flask, render_template, request, redirect
 #from Model.stocks import db
 
@@ -25,7 +25,7 @@ def hello_world():
 def search():
     search = request.form['searchkey']
     try:
-        company_name = symbolToName.get_company_name(search)
+        company_name = get_company_name(search)
         search=search.upper()
     except:
         company_name = 'AAAAAAAAAAAAAAAAA'

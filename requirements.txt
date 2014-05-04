@@ -12,4 +12,5 @@ Flask-SQLAlchemy
 SQLAlchemy
 datetime
 flask
+scipy==0.13.0
 
