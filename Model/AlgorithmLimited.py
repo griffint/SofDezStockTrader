@@ -1,8 +1,6 @@
 import numpy as np 
-import statsmodels.api as sm
 import scipy.linalg as linalg
 import matplotlib.pyplot as plt
-from statsmodels.graphics.api import qqplot
 import random
 import datetime
 from matplotlib.dates import MONDAY
@@ -33,7 +31,7 @@ def Analyze(ticker,par):
 			pass
 	(A,b) = Convert(Stocks,var)
 	(A_full,b_full) = Convert(Stocks_full,var_full)
-	MR(A,b,A_full,b_full)
+	(coeff,meanerror) = MR(A,b,A_full,b_full)
 
 def Convert(Stocks,ExogList):
 	""" This function converts data from EXOG and stocks lists to the A and b parameters for Ax=b"""
