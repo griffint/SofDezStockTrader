@@ -12,6 +12,5 @@ Flask-SQLAlchemy
 SQLAlchemy
 datetime
 flask
-urllib
 urllib2
 
