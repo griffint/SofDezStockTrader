@@ -13,7 +13,7 @@ def Perfecter(tick):
 		error.append(ParFinder(pars[i],dic,comp))
 	minimum = min(error)
 	ideal_par = pars[error.index(minimum)]
-	return ideal_par
+	return (ideal_par,minimum)
 
 def Convert(Stocks,Exog1,Exog2,Exog3):
 	""" This function converts data from EXOG and stocks lists to the A and b parameters for Ax=b"""

@@ -20,7 +20,7 @@ def Analyze(ticker,par):
 	Stocks = FloatConvert(dic['Prices'])
 	x = FloatConvert(dic['Volumes'])
 	var = [x]
-	for i in range(len(comp)):
+	for i in range(1):
 		try:
 			dic = df.internetData(comp[i])
 			w = FloatConvert(dic['Prices'])
@@ -30,8 +30,11 @@ def Analyze(ticker,par):
 		except:
 			pass
 	(A,b) = Convert(Stocks,var)
-	(A_full,b_full) = Convert(Stocks_full,var_full)
-	(coeff,meanerror) = MR(A,b,A_full,b_full)
+	(A_full,b_full) = Convert(Stocks,var)
+	coeff = MR(A,b,A_full,b_full,par)
+	vals = VarPredict(var)
+	Future_Stock_Price = Evaluate(vals,coeff)
+	return (Stocks[-1],Future_Stock_Price)
 
 def Convert(Stocks,ExogList):
 	""" This function converts data from EXOG and stocks lists to the A and b parameters for Ax=b"""
@@ -81,7 +84,15 @@ def MR(A,b,A_full,b_full,par):
 	errors = predicted - b_full
 	e = errors/b_full
 	mean_error =  np.mean(e*e)
-	return (coeff,mean_error)
+	return np.array(coeff)
+
+def VarPredict(var):
+	out = []
+	for i in range(len(var)):
+		x = var[i]
+		pred = Predict(x[-3:])
+		out.append(pred)
+	return np.array(out)
 
 def Predict(s):
 	diff11 = s[1] - s[0]
@@ -90,8 +101,6 @@ def Predict(s):
 	avgdiff1 = (diff12 + diff11)/2
 	out = diff2*(2**2)/2 + avgdiff1*2 + s[1]
 	s = np.append(s,out)
-	plt.plot(s)
-	plt.show()
 	return out
 
 def Evaluate(vals,coeffs):
@@ -99,4 +108,4 @@ def Evaluate(vals,coeffs):
 	return np.sum(out)
 
 if (__name__ == "__main__"):
-	print Analyze('T')
+	Analyze('T',2000)
