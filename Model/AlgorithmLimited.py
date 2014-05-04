@@ -20,7 +20,7 @@ def Analyze(ticker,par):
 	Stocks = FloatConvert(dic['Prices'])
 	x = FloatConvert(dic['Volumes'])
 	var = [x]
-	for i in range(5):
+	for i in range(9):
 		try:
 			dic = df.internetData(comp[i])
 			w = FloatConvert(dic['Prices'])
@@ -34,7 +34,8 @@ def Analyze(ticker,par):
 	coeff = MR(A,b,A_full,b_full,par)
 	vals = VarPredict(var)
 	Future_Stock_Price = Evaluate(vals,coeff)
-	return (Stocks[-1],Future_Stock_Price)
+	Shitty_Future_Stock_Price = Predict(Stocks[-50:],8)
+	return (Stocks[-1],Future_Stock_Price,Shitty_Future_Stock_Price)
 
 def Convert(Stocks,ExogList):
 	""" This function converts data from EXOG and stocks lists to the A and b parameters for Ax=b"""
