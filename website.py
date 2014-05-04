@@ -7,7 +7,7 @@ Created on Thu Apr 10 16:13:27 2014
 
 from pattern.web import *
 from pattern.en import *
-from Model import Algorithm, symbolToName
+from Model import symbolToName
 from flask import Flask, render_template, request, redirect
 from Model.stocks import db
 
@@ -30,7 +30,7 @@ def search():
     except:
         return redirect('/error')
     try:
-        print Algorithm.Analyze(search)
+        pass
     except:
         pass#return render_template('error.html')
     return render_template('sentiment.html', company_name=company_name, search=search)
