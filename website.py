@@ -28,12 +28,9 @@ def search():
         company_name = symbolToName.get_company_name(search)
         search=search.upper()
     except:
+        company_name = 'AAAAAAAAAAAAAAAAA'
         #return redirect('/error')
         pass
-    try:
-        pass
-    except:
-        pass#return render_template('error.html')
     return render_template('sentiment.html', company_name=company_name, search=search)
     
 @app.route('/about', methods = ['POST', 'GET'])
