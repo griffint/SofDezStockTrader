@@ -71,6 +71,7 @@ def database_from_internet():
                 db.session.add(Stock(k,dates[j],i[1],i[0],\
                 i[2],float(prices[j]),float(volumes[j])))
                 k+=1
+                db.session.commit()
             
         
 if __name__ == '__main__':
@@ -84,4 +85,4 @@ if __name__ == '__main__':
         db.create_all()
         database_from_internet()
         print "TIME TO COMMIT THE DATABASE"
-        db.session.commit()
+        #db.session.commit()

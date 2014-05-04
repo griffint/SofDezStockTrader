@@ -21,22 +21,22 @@ def dataFetcher(tickerSymbol):
     #init the lists to store data for output
     prices = []#closing price
     volumes = []
-    shortInterests = []
-    eps = []
+    
     for i in temp:
         prices.append(i.close)
         volumes.append(i.volume)
-        shortInterests.append(i.shortInterest)
-        eps.append(i.eps)
-    outputDict = {'ClosingPrices':prices,'DailyVolumes':volumes,'ShortInterests':shortInterests,'EarningsPerShare':eps}
+    outputDict = {'Prices':prices,'Volumes':volumes}
     return outputDict
 
-
+def industryTickersSQL(tickerSym):
+    """Same shit, different day"""
+    
 
 def industryTickers(tickerSym):
     """This function takes as input a industry represented in our database.
         It then returns a list of ticker symbols of all the stocks in that
         industry"""
+        #uses a csv with all NYSE stocks and their industries
     with open('NYSEindustries.csv','rb') as f:
         reader = csv.reader(f)
         reader.next()
@@ -44,11 +44,13 @@ def industryTickers(tickerSym):
         industryDict = {}
         next(reader)
         for row in reader:
-            
+            #if the industry isn't a key in the dictionary, adds it and the 
+            #corresponding stock
             if str((row[4].split('/'))[0]) not in industryDict:
                 industryDict[str((row[4].split('/'))[0])] = []
                 industryDict[str((row[4].split('/'))[0])].append(str((row[1].split('/'))[0]))
             else:
+                #otherwise it adds the ticker to the corresponding industry
                 industryDict[str((row[4].split('/'))[0])].append(str((row[1].split('/'))[0]))
         
         for key in industryDict:
@@ -63,6 +65,7 @@ def internetData(tickerSym):
     lists of prices and volumes"""
     outputDict = {}
     tempDict = get_historical_prices_list(tickerSym,'2009-05-03','2014-05-03')
+    #the get_historical function is from griffstockquote
     outputDict['Volumes']=tempDict['Volume']
     outputDict['Prices']=tempDict['Price']
     return outputDict
@@ -73,4 +76,4 @@ def internetData(tickerSym):
 #To get today's data, run get_current_data -- it's from griffstockquote and tested
 
 if __name__=='__main__':
-    print internetData('STD')
+    print industryTickers('AAP')
