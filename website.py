@@ -7,7 +7,7 @@ Created on Thu Apr 10 16:13:27 2014
 
 from pattern.web import *
 from pattern.en import *
-from Model import symbolToName
+#from Model import symbolToName
 from flask import Flask, render_template, request, redirect
 #from Model.stocks import db
 
