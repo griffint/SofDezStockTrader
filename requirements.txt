@@ -10,14 +10,9 @@ numpy
 matplotlib
 Flask-SQLAlchemy
 SQLAlchemy
-statsmodels.api
-scipy.linalg
-statsmodels
-statsmodels.graphics.api
+scipy
 datetime
-urllib
 urllib2
 csv
 flask
-flask.ext.sqlalchemy
-sqlalchemy.ext.declarative
+urllib
