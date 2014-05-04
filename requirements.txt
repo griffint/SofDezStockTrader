@@ -16,10 +16,6 @@ scipy.linalg
 statsmodels
 statsmodels.graphics.api
 datetime
-matplotlib.pyplot
-matplotlib.dates
-matplotlib.finance
-matplotlib.dates
 urllib
 urllib2
 csv
