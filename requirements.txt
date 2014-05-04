@@ -10,7 +10,6 @@ numpy
 matplotlib
 Flask-SQLAlchemy
 SQLAlchemy
-scipy
 datetime
 flask
 
