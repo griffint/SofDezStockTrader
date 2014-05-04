@@ -31,7 +31,17 @@ def dataFetcher(tickerSymbol):
 
 def industryTickersSQL(tickerSym):
     """Same shit, different day"""
-    
+    temp = Stock.query.filter_by(ticker=tickerSym).first()
+    industry1 = temp.industry
+    tempIndustry = Stock.query.filter_by(industry=industry1).all()
+    print len(tempIndustry)
+    outputList = []
+    for i in tempIndustry:
+        if i.ticker not in outputList or i.ticker != tickerSym:
+            outputList.append(str(i.ticker))
+            print i.ticker
+        
+    return outputList
 
 def industryTickers(tickerSym):
     """This function takes as input a industry represented in our database.
@@ -65,7 +75,7 @@ def internetData(tickerSym):
     """takes as input a ticker as a string outputs dictionary with sequential
     lists of prices and volumes"""
     outputDict = {}
-    tempDict = get_historical_prices_list(tickerSym,'2009-05-03','2014-05-03')
+    tempDict = get_historical_prices_list(tickerSym,'2009-05-03','2014-05-01')
     #the get_historical function is from griffstockquote
     outputDict['Volumes']=tempDict['Volume']
     outputDict['Prices']=tempDict['Price']
@@ -77,4 +87,4 @@ def internetData(tickerSym):
 #To get today's data, run get_current_data -- it's from griffstockquote and tested
 
 if __name__=='__main__':
-    print dataFetcher('AAP')
+    print industryTickersSQL('AAP')
