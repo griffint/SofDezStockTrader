@@ -12,5 +12,4 @@ Flask-SQLAlchemy
 SQLAlchemy
 datetime
 flask
-urllib3
 
