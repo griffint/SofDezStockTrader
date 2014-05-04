@@ -12,6 +12,5 @@ Flask-SQLAlchemy
 SQLAlchemy
 scipy
 datetime
-statsmodels
 flask
 
