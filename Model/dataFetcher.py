@@ -75,7 +75,7 @@ def internetData(tickerSym):
     """takes as input a ticker as a string outputs dictionary with sequential
     lists of prices and volumes"""
     outputDict = {}
-    tempDict = get_historical_prices_list(tickerSym,'2009-05-03','2014-05-01')
+    tempDict = get_historical_prices_list(tickerSym,'2009-05-01','2014-05-01')
     #the get_historical function is from griffstockquote
     outputDict['Volumes']=tempDict['Volume']
     outputDict['Prices']=tempDict['Price']
