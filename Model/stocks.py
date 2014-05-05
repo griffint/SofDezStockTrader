@@ -15,7 +15,11 @@ from sqlalchemy.ext.declarative import declarative_base
 #stuff to set up the database in Flask
 app = Flask(__name__)
 #config file tells where postgres URL is
-app.config.from_pyfile('config.py')
+if os.environ.get('HEROKU') is None:
+	app.config.from_pyfile('config.py')
+else:
+	app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+
 db = SQLAlchemy(app)
 
 #this class describes what each row of the table will be
