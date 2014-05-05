@@ -25,6 +25,9 @@ def internetData(tickerSymbol):
     for i in temp:
         prices.append(i.close)
         volumes.append(i.volume)
+    print tickerSymbol
+    print "prices length is " + str(len(prices))
+    print "volumes length is " + str(len(volumes))
     outputDict = {'Prices':prices,'Volumes':volumes}
     return outputDict
 
@@ -94,4 +97,5 @@ def industryTickers(tickerSym):
 
 #To get today's data, run get_current_data -- it's from griffstockquote and tested
 
-
+if (__name__ == "__main__"):
+    internetData('T')

@@ -7,4 +7,4 @@ def Analyze(ticker):
 	return (Today,Predicted,Shitty,error)
 
 if (__name__ == "__main__"):
-	print Analyze('T')
+	print Analyze('MMM')
