@@ -19,7 +19,6 @@ def internetData(tickerSymbol):
     #this qeureys the SQL database for all stock data
     temp = Stock.query.filter_by(ticker=tickerSymbol).all()
     #init the lists to store data for output
-    print temp
     prices = []#closing price
     volumes = []
     
@@ -95,5 +94,4 @@ def industryTickers(tickerSym):
 
 #To get today's data, run get_current_data -- it's from griffstockquote and tested
 
-if __name__=='__main__':
 
