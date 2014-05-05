@@ -2,8 +2,7 @@ import AlgorithmLimited as alg
 import AlgorithmPerfecter as ap
 
 def Analyze(ticker):
-	(par,error) = ap.Perfecter(ticker)
-	(Today,Predicted,Shitty) = alg.Analyze(ticker,par)
+	(Today,Predicted,Shitty,error) = alg.Analyze(ticker,0)
 	return (Today,Predicted,Shitty,error)
 
 if (__name__ == "__main__"):
