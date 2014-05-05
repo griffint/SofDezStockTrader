@@ -13,3 +13,4 @@ Flask-SQLAlchemy
 SQLAlchemy
 datetime
 flask
+scipy
