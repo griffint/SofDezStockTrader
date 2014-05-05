@@ -82,6 +82,7 @@ def savefig_twitter_average(company):
     for date in dates:
         hours.append(reformatted_date_subtraction(dates[0], date))
         sentiments.append(dictionary[date])
+    pyl.clf()
     pyl.plot(hours, sentiments, 'bo-')
     try: 
         pyl.axis([-10, numpy.amax(hours)+10, numpy.amin(sentiments)-.2, numpy.amax(sentiments)+.2])
