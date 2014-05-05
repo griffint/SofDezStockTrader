@@ -16,6 +16,7 @@ import os
 #stuff to set up the database in Flask
 app = Flask(__name__)
 #config file tells where postgres URL is
+print os.environ
 if os.environ.get('HEROKU') is None:
 	app.config.from_pyfile('config.py')
 else:
