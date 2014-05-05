@@ -33,15 +33,24 @@ def industryTickersSQL(tickerSym):
     """Same shit, different day"""
     temp = Stock.query.filter_by(ticker=tickerSym).first()
     industry1 = temp.industry
-    tempIndustry = Stock.query.filter_by(industry=industry1).all()
-    print len(tempIndustry)
-    outputList = []
-    for i in tempIndustry:
-        if i.ticker not in outputList or i.ticker != tickerSym:
-            outputList.append(str(i.ticker))
-            print i.ticker
-        
-    return outputList
+    print industry1
+    #print Stock.query.filter_by(industry=industry1).all()
+#    tempIndustry = Stock.query.filter(Stock.ticker.in_(Stock.query.filter_by(industry=industry1))).first()
+#    print len(tempIndustry)
+#    outputList = []
+#    for i in tempIndustry:
+#        if i.ticker not in outputList or i.ticker != tickerSym:
+#            outputList.append(str(i.ticker))
+#            print i.ticker
+#    return outputList
+    
+    subq = Stock.query.filter_by(industry=industry1).distinct(Stock.ticker).all()
+    outputlist=[]
+    for i in subq:
+        outputlist.append(str(i.ticker))
+    return outputlist
+
+ 
 
 def industryTickers(tickerSym):
     """This function takes as input a industry represented in our database.
@@ -87,4 +96,4 @@ def internetData(tickerSym):
 #To get today's data, run get_current_data -- it's from griffstockquote and tested
 
 if __name__=='__main__':
-    print industryTickersSQL('AAP')
+    print industryTickers('AAP')
