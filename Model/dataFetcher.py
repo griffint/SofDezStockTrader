@@ -52,7 +52,8 @@ def industryTickers(tickerSym):
         outputlist.append(str(i.ticker))
     return outputlist
 
- 
+
+#this is all the internet pulling
 
 #def industryTickers(tickerSym):
 #    """This function takes as input a industry represented in our database.
@@ -81,7 +82,7 @@ def industryTickers(tickerSym):
 #                
 #        tickersList.remove(tickerSym)
 #        return tickersList
-        
+#        
 #def internetData(tickerSym):
 #    """takes as input a ticker as a string outputs dictionary with sequential
 #    lists of prices and volumes"""

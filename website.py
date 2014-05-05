@@ -32,7 +32,7 @@ def search():
     data = Analyze(search)
     current_price = data[0]
     next_price= data[1]
-    error= data[2]
+    error= data[3]
     error = error*100
     savefig_twitter_average(company_name)
     x = next_price/current_price
