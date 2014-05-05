@@ -11,6 +11,7 @@ from datetime import date
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.declarative import declarative_base
+import os
 
 #stuff to set up the database in Flask
 app = Flask(__name__)
