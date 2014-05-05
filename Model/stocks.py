@@ -17,9 +17,11 @@ import os
 app = Flask(__name__)
 #config file tells where postgres URL is
 print os.environ
-if os.environ.get('PYTHONHOME') is not '/app/.heroku/python':
+if "heroku" not in os.environ.get('WNHOME'):
+	print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! not in heroku !!!!!!!!!!!!!!!!!!!!!!!!"
 	app.config.from_pyfile('config.py')
 else:
+	print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! IN heroku !!!!!!!!!!!!!!!!!!!!!!!!"
 	app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
 db = SQLAlchemy(app)
