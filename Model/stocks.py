@@ -11,11 +11,16 @@ from datetime import date
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.declarative import declarative_base
+import os
 
 #stuff to set up the database in Flask
 app = Flask(__name__)
 #config file tells where postgres URL is
-app.config.from_pyfile('config.py')
+if "heroku" not in os.environ.get('WNHOME'):
+	app.config.from_pyfile('config.py')
+else:
+	app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+
 db = SQLAlchemy(app)
 
 #this class describes what each row of the table will be

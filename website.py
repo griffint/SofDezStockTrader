@@ -44,7 +44,6 @@ def search():
             recommendation = 'selling'
     except:
         return redirect('/error')
-    print company_name
     return render_template('sentiment.html', recommendation=recommendation, company_name=company_name, search=search, current_price=current_price, next_price=next_price, error=error)
     
 @app.route('/about', methods = ['POST', 'GET'])

@@ -6,10 +6,10 @@ gunicorn==18.0
 itsdangerous==0.24
 wsgiref==0.1.2
 pattern==2.6
+scipy
 numpy
 matplotlib
 Flask-SQLAlchemy
 SQLAlchemy
 datetime
 flask
-
