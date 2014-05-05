@@ -17,6 +17,7 @@ def FloatConvert(l):
 def Analyze(ticker,par):
 	dic = df.internetData(ticker)
 	comp = df.industryTickers(ticker)
+	print "Num vars is " + str(len(comp))
 	Stocks = FloatConvert(dic['Prices'])
 	x = FloatConvert(dic['Volumes'])
 	var = [x]
@@ -42,7 +43,6 @@ def Convert(Stocks,ExogList):
 	""" This function converts data from EXOG and stocks lists to the A and b parameters for Ax=b"""
 	A = np.array(ExogList).T
 	b = np.array(Stocks).T
-	print np.dot(A.T,b)
 	return (A,b)
 
 def MR(A,b,A_full,b_full,par):
