@@ -20,13 +20,14 @@ def Analyze(ticker,par):
 	Stocks = FloatConvert(dic['Prices'])
 	x = FloatConvert(dic['Volumes'])
 	var = [x]
-	for i in range(9):
+	for i in range(len(comp)/3):
 		try:
 			dic = df.internetData(comp[i])
 			w = FloatConvert(dic['Prices'])
 			x = FloatConvert(dic['Volumes'])
-			var.extend([w,x])
-			var_full.extend([w,x])
+			if len(w)==1008:
+				var.extend([w,x])
+				var_full.extend([w,x])
 		except:
 			pass
 	(A,b) = Convert(Stocks,var)
