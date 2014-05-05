@@ -57,13 +57,15 @@ def twitter_sentiment_average(company):
         try:
             count = 0
             totSentiment = 0
-            if t.search(company, start=i, count=1)==[]:
+            tweets = t.search(company, start=i, count=100)
+            if tweets == []:
                 raise SystemExit("Sorry, your company doesn't have any recent tweets") #break the try except statement
-            for tweet in t.search(company, start=i, count=100):
-                count+=1
-                date = unicode_tweet_date_reformat(tweet.date)
-                totSentimentTemp = sentiment(tweet.text)
-                totSentiment += totSentimentTemp[0]
+            else:
+                for tweet in tweets:
+                    count+=1
+                    date = unicode_tweet_date_reformat(tweet.date)
+                    totSentimentTemp = sentiment(tweet.text)
+                    totSentiment += totSentimentTemp[0]
             dates.append(date)
             output[date] = totSentiment/count
             i = unicode(int(i)-100000000000000) #look further back in twitter's archive
@@ -87,11 +89,8 @@ def savefig_twitter_average(company):
         pass
     pyl.xlabel('Hours Ago')
     pyl.ylabel('Sentiment')
-    pyl.title('Sentiment Data')
-    try:
-        pyl.savefig('static/sentiment.png')
-    except:
-        pyl.savefig('sentiment.png')
+    pyl.title('Sentiment Data for '+company)
+    pyl.savefig('static/sentiment.png')
     pyl.clf()
         
 def unicode_tweet_date_reformat(unicodeDate):
@@ -148,4 +147,4 @@ def reformatted_date_subtraction(current_date, prev_date):
     
 
 if __name__ == '__main__':
-    savefig_twitter_average('walmart')
+    savefig_twitter_average('Walmart')

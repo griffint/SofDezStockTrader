@@ -4,11 +4,13 @@ Created on Thu Apr 10 16:13:27 2014
 
 @author: sawyer
 """
-
+ 
 from pattern.web import *
 from pattern.en import *
-from Model import symbolToName
+from Model.symbolToName import get_company_name
+from Model.sentimentAnalysis import savefig_twitter_average
 from flask import Flask, render_template, request, redirect
+from Model.Analyze import Analyze
 #from Model.stocks import db
 
 app = Flask(__name__)
@@ -25,13 +27,25 @@ def hello_world():
 def search():
     search = request.form['searchkey']
     try:
-        company_name = symbolToName.get_company_name(search)
+        company_name = get_company_name(search)
         search=search.upper()
+        data = Analyze(search)
+        current_price = data[0]
+        next_price= data[1]
+        error= data[2]
+        error = error*100
+        savefig_twitter_average(company_name)
+        x = next_price/current_price
+        if x>1.02:
+            recommendation = 'buying'
+        elif x>.98:
+            recommendation = 'holding on'
+        else:
+            recommendation = 'selling'
     except:
-        company_name = 'AAAAAAAAAAAAAAAAA'
-        #return redirect('/error')
-        pass
-    return render_template('sentiment.html', company_name=company_name, search=search)
+        return redirect('/error')
+    print company_name
+    return render_template('sentiment.html', recommendation=recommendation, company_name=company_name, search=search, current_price=current_price, next_price=next_price, error=error)
     
 @app.route('/about', methods = ['POST', 'GET'])
 def about():

@@ -20,7 +20,7 @@ def Analyze(ticker,par):
 	Stocks = FloatConvert(dic['Prices'])
 	x = FloatConvert(dic['Volumes'])
 	var = [x]
-	for i in range(1):
+	for i in range(9):
 		try:
 			dic = df.internetData(comp[i])
 			w = FloatConvert(dic['Prices'])
@@ -34,7 +34,8 @@ def Analyze(ticker,par):
 	coeff = MR(A,b,A_full,b_full,par)
 	vals = VarPredict(var)
 	Future_Stock_Price = Evaluate(vals,coeff)
-	return (Stocks[-1],Future_Stock_Price)
+	Shitty_Future_Stock_Price = Predict(Stocks[-50:],8)
+	return (Stocks[-1],Future_Stock_Price,Shitty_Future_Stock_Price)
 
 def Convert(Stocks,ExogList):
 	""" This function converts data from EXOG and stocks lists to the A and b parameters for Ax=b"""
@@ -70,12 +71,16 @@ def MR(A,b,A_full,b_full,par):
 	monthsFmt = DateFormatter("%b '%y")
 
 	fig, ax = plt.subplots()
-	ax.plot_date(dates2,b_full, '.')
-	ax.plot_date(dates2,predicted, 'r-')
+	ax.plot_date(dates2,b_full, '.', label='Actual Data')
+	ax.plot_date(dates2,predicted, 'r-', label='Predicted Data')
 	ax.xaxis.set_major_locator(months)
 	ax.xaxis.set_major_formatter(monthsFmt)
 	ax.xaxis.set_minor_locator(mondays)
 	ax.autoscale_view()
+        plt.xlabel('Date')
+        plt.ylabel('Stock Prices ($)')
+        plt.title('Stock Prices and Predictions')
+	plt.legend(loc=0)
 	
 	try:
 		plt.savefig('static/prediction.jpg')
@@ -90,18 +95,17 @@ def VarPredict(var):
 	out = []
 	for i in range(len(var)):
 		x = var[i]
-		pred = Predict(x[-3:])
+		pred = Predict(x[-50:],8)
 		out.append(pred)
 	return np.array(out)
 
-def Predict(s):
-	diff11 = s[1] - s[0]
-	diff12 = s[2] - s[1]
-	diff2 = diff12 - diff11
-	avgdiff1 = (diff12 + diff11)/2
-	out = diff2*(2**2)/2 + avgdiff1*2 + s[1]
-	s = np.append(s,out)
-	return out
+def Predict(s,deg):
+	t = range(len(s))
+	t = np.array(t)
+	t_next = t[-1] + 1
+	p = np.polyfit(t,s,deg)
+	return np.polyval(p,t_next)
+
 
 def Evaluate(vals,coeffs):
 	out = vals*coeffs

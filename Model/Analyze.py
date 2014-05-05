@@ -3,5 +3,8 @@ import AlgorithmPerfecter as ap
 
 def Analyze(ticker):
 	(par,error) = ap.Perfecter(ticker)
-	(Today,Predicted) = alg.Analyze(ticker,par)
-	return (Today,Predicted,error)
+	(Today,Predicted,Shitty) = alg.Analyze(ticker,par)
+	return (Today,Predicted,Shitty,error)
+
+if (__name__ == "__main__"):
+	print Analyze('T')

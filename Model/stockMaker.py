@@ -66,12 +66,14 @@ def database_from_internet():
             volumes = hist_dict['Volume']
             dates = hist_dict['Date']
             prices = hist_dict['Price']
+            print "another stock added!"
             for j in range(len(dates)):
-                print k
+                
                 db.session.add(Stock(k,dates[j],i[1],i[0],\
                 i[2],float(prices[j]),float(volumes[j])))
                 k+=1
                 db.session.commit()
+
             
         
 if __name__ == '__main__':
