@@ -19,7 +19,7 @@ app = Flask(__name__)
 if "heroku" not in os.environ.get('WNHOME'):
 	app.config.from_pyfile('config.py')
 else:
-	app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['postgres://u2rn3lb6729plq:pd5rk7bcfodbfb8bdqpq1nrnism@ec2-54-83-200-14.compute-1.amazonaws.com:5592/d21v6cs5fvh831']
+	app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['ec2-54-83-200-14.compute-1.amazonaws.com']
 
 db = SQLAlchemy(app)
 
