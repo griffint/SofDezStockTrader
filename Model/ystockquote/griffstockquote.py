@@ -542,13 +542,7 @@ def get_historical_prices_list(symbol, start_date, end_date):
     return hist_dict
     
     return hist_dict
-def get_historical_prices_matrix(symbol_list, start_date, end_date):
-    """This function takes as input (symbol_list,start_date,end_date) where the 
-    symbol is a list of strings such as 'GOOG' representing the stocks 
-    to view data for, and dates are in the format 'YYYY-MM-DD'.
-    Returns a numpy matrix where each row represents a stock and the columns
-    are consecutive days.
-    """
+
     
 def get_current_data(ticker):
     """This function takes as input a ticker symbol as a string. It returns
@@ -559,10 +553,7 @@ def get_current_data(ticker):
     float(get_short_ratio(ticker))*float(get_average_daily_volume(ticker))\
     ,'EarningsPerShare':float(get_eps(ticker))}
     return dict
-    
-def get_3_days_current(ticker):
-    """This function takes as input 
-    """
+
     
 if __name__ == '__main__':
     print get_historical_prices_list('AAP','2011-04-01','2014-02-28')

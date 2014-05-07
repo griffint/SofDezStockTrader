@@ -32,7 +32,9 @@ def internetData(tickerSymbol):
     return outputDict
 
 def industryTickers(tickerSym):
-    """Same shit, different day"""
+    """This function takes as input a industry represented in our database.
+       It then returns a list of ticker symbols of all the stocks in that
+       industry"""
     temp = Stock.query.filter_by(ticker=tickerSym).first()
     industry1 = temp.industry
     print industry1
