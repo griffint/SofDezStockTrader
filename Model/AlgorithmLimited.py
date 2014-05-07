@@ -1,3 +1,5 @@
+#Created Maor Bernstein
+
 import numpy as np 
 import scipy.linalg as linalg
 import matplotlib.pyplot as plt
