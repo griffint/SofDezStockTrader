@@ -1,4 +1,5 @@
 #Created Maor Bernstein
+""" Do not run this script. Functionality still has yet to be restored. """
 
 import numpy as np
 import scipy.linalg as linalg
@@ -6,6 +7,8 @@ import matplotlib.pyplot as plt
 import dataFetcher as df
 
 def Perfecter(tick):
+	"""This function takes a ticker, and outputs the perfect Ridge regression parameter and error.
+	"""
 	(A,b,A_full,b_full,n) = Pull(tick)
 	pars = range(0,1000000,100)
 	error = []
@@ -24,18 +27,29 @@ def Convert(Stocks,ExogList):
 	return (A,b)
 
 def sumsqrs(l):
+	"""Outputs the sum of squares of a list.
+	Input: List of numbers
+	Output: Sum of squares of the list"""
 	out = 0
 	for i in range(len(l)):
 		out += l[i]**2
 	return out
 
 def FloatConvert(l):
+	""" Converts lists of strings to lists of floats.
+	Input: List of strings
+	Output: List of floats
+	Useful because Datafetcher outputs lists of strings
+	"""
 	out = []
 	for i in range(len(l)):
 		out.append(float(l[i]))
 	return out
 
 def Pull(ticker):
+	"""This function pulls data for a ticker and converts it into A,b,A_full,b_full, and what percentage of the data  is the model to be built on
+	Input: ticker
+	Ouput: A,b,A_full,b_full,n """
 	dic = df.internetData(ticker)
 	comp = df.industryTickers(ticker)
 	print "Num vars is " + str(len(comp))
@@ -63,6 +77,9 @@ def Pull(ticker):
 	return (A,b,A_full,b_full,n)
 
 def ParFinder(A,b,A_full,b_full,par,n):
+	"""This function finds the ideal parameter from the data pulled from pull.
+	Inputs: Ouputs of pull,  and the ridge regression paramer.
+	Ouput: The error given a parameter input"""
 	ATB = np.dot(A.transpose(),b)
 	numvars = ATB.shape[0]
 	ATA = np.dot(A.transpose(),A) + par*np.identity(numvars)
