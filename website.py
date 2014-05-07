@@ -21,10 +21,12 @@ app = Flask(__name__)
 
 @app.route('/', methods = ['POST', 'GET'])
 def hello_world():
+    ''' Renders the default html template '''
     return render_template('index.html')
 
 @app.route('/search', methods = ['POST', 'GET'])
 def search():
+    ''' This function gets the requested search from the website, and runs the algorithm and sentiment analysis, and renders the template for the results. '''
     search = request.form['searchkey']
     #try:
     company_name = get_company_name(search)
@@ -48,10 +50,12 @@ def search():
     
 @app.route('/about', methods = ['POST', 'GET'])
 def about():
+    ''' This renders the template for the 'About Us' section'''
     return render_template('about.html')
     
 @app.route('/error', methods = ['POST', 'GET'])
 def error():
+    ''' Renders the template for the error page '''
     return render_template('error.html')
     
 if __name__ == "__main__":
