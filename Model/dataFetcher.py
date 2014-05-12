@@ -38,16 +38,7 @@ def industryTickers(tickerSym):
     temp = Stock.query.filter_by(ticker=tickerSym).first()
     industry1 = temp.industry
     print industry1
-    #print Stock.query.filter_by(industry=industry1).all()
-#    tempIndustry = Stock.query.filter(Stock.ticker.in_(Stock.query.filter_by(industry=industry1))).first()
-#    print len(tempIndustry)
-#    outputList = []
-#    for i in tempIndustry:
-#        if i.ticker not in outputList or i.ticker != tickerSym:
-#            outputList.append(str(i.ticker))
-#            print i.ticker
-#    return outputList
-    
+    #querys the SQL database for all the tickers with that industry
     subq = Stock.query.filter_by(industry=industry1).distinct(Stock.ticker).all()
     outputlist=[]
     for i in subq:
@@ -55,7 +46,8 @@ def industryTickers(tickerSym):
     return outputlist
 
 
-#this is all the internet pulling
+#this is all the internet pulling cdoe. I'm keeping it here incase we want to
+#use it all again
 
 #def industryTickers(tickerSym):
 #    """This function takes as input a industry represented in our database.
@@ -101,4 +93,4 @@ def industryTickers(tickerSym):
 #To get today's data, run get_current_data -- it's from griffstockquote and tested
 
 if (__name__ == "__main__"):
-    internetData('T')
+    print internetData('T')
